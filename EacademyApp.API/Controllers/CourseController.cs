@@ -1,7 +1,13 @@
+using System.Threading.Tasks;
+using EacademyApp.API.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EacademyApp.API.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class CoursesController : ControllerBase
     {
         private readonly DataContext _context;

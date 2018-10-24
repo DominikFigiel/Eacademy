@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace EacademyApp.API.Models
 {
     public class Teacher
