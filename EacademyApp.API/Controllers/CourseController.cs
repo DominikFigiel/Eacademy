@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EacademyApp.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CoursesController : ControllerBase
@@ -17,7 +18,6 @@ namespace EacademyApp.API.Controllers
 
         }
         // GET api/courses
-        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetCourses()
         {
