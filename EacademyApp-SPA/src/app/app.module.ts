@@ -4,23 +4,26 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { CourseComponent } from './course/course.component';
-import { RegisterComponent } from './register/register.component';
 import { NavComponent } from './nav/nav.component';
-import { WelcomeComponent } from './welcome/welcome.component';
+import { AuthService } from './_services/auth.service';
+import { HomeComponent } from './home/home.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
    declarations: [
       AppComponent,
       CourseComponent,
-      RegisterComponent,
       NavComponent,
-      WelcomeComponent
+      HomeComponent,
+      RegisterComponent
    ],
    imports: [
       BrowserModule,
       HttpClientModule
    ],
-   providers: [],
+   providers: [
+      AuthService
+   ],
    bootstrap: [
       AppComponent
    ]
