@@ -1,17 +1,15 @@
-nav class="navbar navbar-expand-md navbar-dark bg-primary">
+<nav class="navbar navbar-expand-md navbar-dark bg-primary">
   <div class="container">
       <a class="navbar-brand" [routerLink]="['/home']">eAcademy App</a>
-       <ul *ngIf="studentLoggedIn()" class="navbar-nav mr-auto">
-        <li class="nav-item" routerLinkActive="router-link-active">
+
+      <ul *ngIf="studentLoggedIn()" class="navbar-nav mr-auto">
+        <li class="nav-item" routerLinkActive="active">
           <a class="nav-link" [routerLink]="['/users']">Użytkownicy</a>
         </li>
-        <li class="nav-item" routerLinkActive="router-link-active">
+        <li class="nav-item" routerLinkActive="active">
           <a class="nav-link" [routerLink]="['/messages']">Wiadomości</a>
         </li>
-        <li class="nav-item" routerLinkActive="router-link-active">
-          <a class="nav-link" [routerLink]="['/groups']">Grupy</a>
-        </li>
-        <li class="nav-item" routerLinkActive="router-link-active">
+        <li class="nav-item" routerLinkActive="active">
           <a class="nav-link" [routerLink]="['/courses']">Kursy</a>
         </li>
       </ul>
@@ -22,7 +20,9 @@ nav class="navbar navbar-expand-md navbar-dark bg-primary">
         </a>
       
         <div class="dropdown-menu mt-3" *dropdownMenu>
-          <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Edytuj profil</a>
+          <a class="dropdown-item" [routerLink]="['/courses']"><i class="fa fa-user"></i> Edytuj profil</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" [routerLink]="['/courses']"><i class="fa fa-book"></i> Moje kursy</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" (click)="studentLogout()"><i class="fa fa-sign-out"></i> Wyloguj</a>
         </div>
@@ -36,4 +36,4 @@ nav class="navbar navbar-expand-md navbar-dark bg-primary">
         <button [disabled]="!loginForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">Zaloguj się</button>
       </form>
   </div>
-</nav> 
+</nav>

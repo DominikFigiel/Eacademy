@@ -7,16 +7,16 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-
 export class AppComponent implements OnInit {
   title = 'EacademyApp';
   jwtHelper = new JwtHelperService();
-   constructor(private authService: AuthService) {}
-   ngOnInit() {
+
+  constructor(private authService: AuthService) {}
+
+  ngOnInit() {
     const token = localStorage.getItem('token');
     if (token) {
       this.authService.decodedToken = this.jwtHelper.decodeToken(token);
     }
   }
 }
-
