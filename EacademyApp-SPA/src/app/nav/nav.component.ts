@@ -20,11 +20,10 @@ export class NavComponent implements OnInit {
     });
   }
    studentLoggedIn() {
-    const token = localStorage.getItem('token');
-    return !!token;
+    return this.authService.studentLoggedIn();
   }
    studentLogout() {
     localStorage.removeItem('token');
-    this.alertify.message('logged out');
+    this.alertify.message('Zostałeś wylogowany.');
   }
  }
