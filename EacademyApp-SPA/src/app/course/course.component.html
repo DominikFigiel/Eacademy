@@ -4,12 +4,12 @@
     <p class="lead">Wszystkie kursy:</p>
 
     <div class="row">
-      <div *ngFor="let course of courses" class="col-sm-6">
+      <div *ngFor="let course of courses" class="col-sm-6 mb-4">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">{{course.name}}</h5>
             <p class="card-text">{{course.description}}</p>
-            <a href="#" class="btn btn-primary btn-block">Dołącz do kursu</a>
+            <button type="button" class="btn btn-success btn-block" (click)="addCourseStudent(course.id)">Dołącz do kursu</button>
           </div>
         </div>
       </div>

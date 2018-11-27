@@ -10,5 +10,7 @@ using EacademyApp.API.Models;
         Task<bool> SaveAll();
         Task<IEnumerable<Student>> GetStudents();
         Task<Student> GetStudent(int id);
+        Task<Course> GetCourse(int id);
+        Task<bool> CourseStudentExists(int courseId, int studentId);
     }
 }

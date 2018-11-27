@@ -8,6 +8,7 @@ import { StudentListComponent } from './students/student-list/student-list.compo
 import { StudentDetailComponent } from './students/student-detail/student-detail.component';
 import { StudentEditComponent } from './students/student-edit/student-edit.component';
 import { StudentEditResolver } from './_resolvers/member-edit.resolver';
+import { UserCourseListComponent } from './students/user-course-list/user-course-list.component';
 
 export const appRoutes: Routes = [
     { path: '', component: HomeComponent},
@@ -21,7 +22,8 @@ export const appRoutes: Routes = [
             { path: 'students', component: StudentListComponent},
             { path: 'students/:id', component: StudentDetailComponent},
             { path: 'student/edit', component: StudentEditComponent,
-                resolve: {student: StudentEditResolver}, canDeactivate: [PreventUnsavedChanges]}
+                resolve: {student: StudentEditResolver}, canDeactivate: [PreventUnsavedChanges]},
+            { path: 'student/courses', component: UserCourseListComponent},
         ]
     },
     { path: '**', redirectTo: '', pathMatch: 'full'}
