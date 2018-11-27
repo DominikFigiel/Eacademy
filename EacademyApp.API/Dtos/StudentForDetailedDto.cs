@@ -1,14 +1,9 @@
 using System;
-<<<<<<< HEAD
 using System.Collections.Generic;
 using EacademyApp.API.Models;
-
-namespace EacademyApp.API.Dtos
-=======
  namespace EacademyApp.API.Dtos
->>>>>>> e351c261f616061baedf560f82083e5a5de553f6
 {
-    public class StudentForListDto
+    public class StudentForDetailedDto
     {
         public int Id { get; set; }
         public string Username { get; set; }
@@ -17,11 +12,6 @@ namespace EacademyApp.API.Dtos
         public string PhotoURL { get; set; }
         public DateTime Created { get; set; }
         public DateTime EnrollmentDate { get; set; }
-<<<<<<< HEAD
-        public ICollection<CourseStudent> CourseStudents { get; set; }
+        public ICollection<CourseStudent> CourseStudents { get; } = new List<CourseStudent>();
     }
 }
-=======
-    }
-}
->>>>>>> e351c261f616061baedf560f82083e5a5de553f6

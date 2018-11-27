@@ -1,9 +1,15 @@
 using System.Collections.Generic;
+<<<<<<< HEAD
 using System.Collections.ObjectModel;
 using EacademyApp.API.Models;
 using Newtonsoft.Json;
 
 namespace EacademyApp.API.Data
+=======
+using EacademyApp.API.Models;
+using Newtonsoft.Json;
+ namespace EacademyApp.API.Data
+>>>>>>> e351c261f616061baedf560f82083e5a5de553f6
 {
     public class Seed
     {
@@ -12,6 +18,7 @@ namespace EacademyApp.API.Data
         {
             _context = context;
         }
+<<<<<<< HEAD
 
         public void SeedData()
         {
@@ -37,12 +44,17 @@ namespace EacademyApp.API.Data
             };
             _context.Modules.Add(module);
 
+=======
+         public void SeedStudents()
+        {
+>>>>>>> e351c261f616061baedf560f82083e5a5de553f6
             var studentData = System.IO.File.ReadAllText("Data/SeedData/StudentSeedData.json");
             var students = JsonConvert.DeserializeObject<List<Student>>(studentData);
             foreach(var student in students)
             {
                 byte[] passwordHash, passwordSalt;
                 CreatePasswordHash("password", out passwordHash, out passwordSalt);
+<<<<<<< HEAD
 
                 student.PasswordHash = passwordHash;
                 student.PasswordSalt = passwordSalt;
@@ -70,6 +82,16 @@ namespace EacademyApp.API.Data
         }
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+=======
+                 student.PasswordHash = passwordHash;
+                student.PasswordSalt = passwordSalt;
+                student.Username = student.Username.ToLower();
+                 _context.Students.Add(student);
+            }
+             _context.SaveChanges();
+        }
+         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+>>>>>>> e351c261f616061baedf560f82083e5a5de553f6
         {
             using(var hmac = new System.Security.Cryptography.HMACSHA512())
             {
@@ -78,4 +100,8 @@ namespace EacademyApp.API.Data
             }
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> e351c261f616061baedf560f82083e5a5de553f6

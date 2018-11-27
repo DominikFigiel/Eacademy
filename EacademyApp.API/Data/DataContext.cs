@@ -15,6 +15,7 @@ namespace EacademyApp.API.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+<<<<<<< HEAD
             modelBuilder.Entity<Student>()
                 .HasAlternateKey(s => s.Username)
                 .HasName("AlternateKey_Username");
@@ -31,6 +32,11 @@ namespace EacademyApp.API.Data
                 .HasOne(cs => cs.Student)
                 .WithMany(s => s.CourseStudents)
                 .HasForeignKey(cs => cs.StudentId);
+=======
+        modelBuilder.Entity<Student>()
+            .HasAlternateKey(s => s.Username)
+            .HasName("AlternateKey_Username");
+>>>>>>> e351c261f616061baedf560f82083e5a5de553f6
         }
     }
 }

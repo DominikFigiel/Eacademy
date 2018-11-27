@@ -1,0 +1,47 @@
+[
+    {
+        "Username": "dominik",
+        "Password": "dominik",
+        "Name": "Dominik",
+        "Surname": "Figiel",
+        "Created": "2014-05-16",
+        "EnrollmentDate": "2017-03-30",
+        "PhotoURL": "https://randomuser.me/api/portraits/men/3.jpg"
+    },
+    {
+        "Username": "martin",
+        "Password": "martin",
+        "Name": "Martin",
+        "Surname": "Haładyn",
+        "Created": "2014-03-08",
+        "EnrollmentDate": "2016-09-11",
+        "PhotoURL": "https://randomuser.me/api/portraits/men/29.jpg"
+    },
+    {
+        "Username": "marcin",
+        "Password": "marcin",
+        "Name": "Marcin",
+        "Surname": "Rubach",
+        "Created": "2014-06-22",
+        "EnrollmentDate": "2016-03-29",
+        "PhotoURL": "https://randomuser.me/api/portraits/men/83.jpg"
+    },
+    {
+        "Username": "radek",
+        "Password": "radek",
+        "Name": "Radosław",
+        "Surname": "Ziemniak",
+        "Created": "2014-06-22",
+        "EnrollmentDate": "2016-03-29",
+        "PhotoURL": "https://randomuser.me/api/portraits/men/85.jpg"
+    },
+    {
+        "Username": "test",
+        "Password": "test",
+        "Name": "test",
+        "Surname": "test",
+        "Created": "2014-06-22",
+        "EnrollmentDate": "2016-03-29",
+        "PhotoURL": "https://randomuser.me/api/portraits/men/53.jpg"
+    }
+  ]

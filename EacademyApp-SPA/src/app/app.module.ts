@@ -19,12 +19,20 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { StudentService } from './_services/student.service';
 import { StudentListComponent } from './students/student-list/student-list.component';
 import { StudentCardComponent } from './students/student-card/student-card.component';
+<<<<<<< HEAD
 import { StudentDetailComponent } from './students/student-detail/student-detail.component';
 import { StudentCourseListComponent } from './students/student-course-list/student-course-list.component';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
 }
+=======
+
+export function tokenGetter() {
+   return localStorage.getItem('token');
+}
+
+>>>>>>> e351c261f616061baedf560f82083e5a5de553f6
 
 @NgModule({
    declarations: [
@@ -35,9 +43,13 @@ export function tokenGetter() {
       RegisterComponent,
       WelcomeComponent,
       StudentListComponent,
+<<<<<<< HEAD
       StudentCardComponent,
       StudentDetailComponent,
       StudentCourseListComponent
+=======
+      StudentCardComponent
+>>>>>>> e351c261f616061baedf560f82083e5a5de553f6
    ],
    imports: [
       BrowserModule,
