@@ -9,9 +9,9 @@ using Microsoft.AspNetCore.Mvc;
  
 namespace EacademyApp.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class StudentsController : ControllerBase
     {
         private readonly IEacademyRepository _repo;
@@ -28,7 +28,7 @@ namespace EacademyApp.API.Controllers
             var studentsToReturn = _mapper.Map<IEnumerable<StudentForListDto>>(students);
             return Ok(studentsToReturn);
         }
-         [HttpGet]
+         [HttpGet("{id}")]
         public async Task<IActionResult> GetStudent(int id)
         {
             var student = await _repo.GetStudent(id);

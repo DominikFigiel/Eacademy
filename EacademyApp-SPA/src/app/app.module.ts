@@ -15,6 +15,9 @@ import { AlertifyService } from './_services/alertify.service';
 import { appRoutes } from './routes';
 import { AuthGuard } from './_guards/auth.guard';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { StudentService } from './_services/student.service';
+import { StudentListComponent } from './students/student-list/student-list.component';
+import { StudentCardComponent } from './students/student-card/student-card.component';
 
 @NgModule({
    declarations: [
@@ -23,7 +26,9 @@ import { WelcomeComponent } from './welcome/welcome.component';
       NavComponent,
       HomeComponent,
       RegisterComponent,
-      WelcomeComponent
+      WelcomeComponent,
+      StudentListComponent,
+      StudentCardComponent
    ],
    imports: [
       BrowserModule,
@@ -36,7 +41,8 @@ import { WelcomeComponent } from './welcome/welcome.component';
    providers: [
       AuthService,
       AlertifyService,
-      AuthGuard
+      AuthGuard,
+      StudentService
    ],
    bootstrap: [
       AppComponent
