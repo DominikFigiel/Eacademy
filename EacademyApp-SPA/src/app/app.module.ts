@@ -26,6 +26,7 @@ import { StudentEditResolver } from './_resolvers/member-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { CourseService } from './_services/course.service';
 import { UserCourseListComponent } from './students/user-course-list/user-course-list.component';
+import { CourseListComponent } from './courses/course-list/course-list.component';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -35,6 +36,7 @@ export function tokenGetter() {
    declarations: [
       AppComponent,
       CourseComponent,
+      CourseListComponent,
       NavComponent,
       HomeComponent,
       RegisterComponent,

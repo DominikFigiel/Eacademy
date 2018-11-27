@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { CourseService } from '../_services/course.service';
-import { AuthService } from '../_services/auth.service';
-import { AlertifyService } from '../_services/alertify.service';
+import { CourseService } from '../../_services/course.service';
+import { AuthService } from '../../_services/auth.service';
+import { AlertifyService } from '../../_services/alertify.service';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -11,11 +11,11 @@ const httpOptions = {
 };
 
 @Component({
-  selector: 'app-course',
-  templateUrl: './course.component.html',
-  styleUrls: ['./course.component.css']
+  selector: 'app-course-list',
+  templateUrl: './course-list.component.html',
+  styleUrls: ['./course-list.component.css']
 })
-export class CourseComponent implements OnInit {
+export class CourseListComponent implements OnInit {
   courses: any;
 
   constructor(private http: HttpClient, private courseService: CourseService, private authService: AuthService,

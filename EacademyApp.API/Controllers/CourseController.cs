@@ -41,7 +41,7 @@ namespace EacademyApp.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCourse(int id)
         {
-            var course = await _context.Courses.FirstOrDefaultAsync(x => x.Id == id);
+             var course = await _context.Courses.Include(c => c.Modules).FirstOrDefaultAsync(x => x.Id == id);
 
             return Ok(course);
         }

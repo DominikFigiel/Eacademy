@@ -18,7 +18,8 @@ export const appRoutes: Routes = [
         canActivate: [AuthGuard],
         children: [
             { path: 'welcome', component: WelcomeComponent},
-            { path: 'courses', component: CourseComponent},
+            { path: 'courses', component: CourseListComponent},
+            { path: 'courses/:id', component: CourseComponent},
             { path: 'students', component: StudentListComponent},
             { path: 'students/:id', component: StudentDetailComponent},
             { path: 'student/edit', component: StudentEditComponent,
