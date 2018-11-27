@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
+import { JwtModule } from '@auth0/angular-jwt';
 
 import { AppComponent } from './app.component';
 import { CourseComponent } from './course/course.component';
@@ -18,6 +19,11 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { StudentService } from './_services/student.service';
 import { StudentListComponent } from './students/student-list/student-list.component';
 import { StudentCardComponent } from './students/student-card/student-card.component';
+
+export function tokenGetter() {
+   return localStorage.getItem('token');
+}
+
 
 @NgModule({
    declarations: [
@@ -36,7 +42,14 @@ import { StudentCardComponent } from './students/student-card/student-card.compo
       FormsModule,
       BsDropdownModule.forRoot(),
       TabsModule.forRoot(),
-      RouterModule.forRoot(appRoutes)
+      RouterModule.forRoot(appRoutes),
+      JwtModule.forRoot({
+          config: {
+            tokenGetter: tokenGetter,
+            whitelistedDomains: ['localhost:5000'],
+            blacklistedRoutes: ['localhost:5000/api/auth']
+          }
+      })
    ],
    providers: [
       AuthService,
