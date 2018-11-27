@@ -1,0 +1,12 @@
+.my-pagination /deep/ .pagination li a{
+    background: #3498DB;
+}
+.my-pagination /deep/ .pagination li.pagination-prev a{
+    background: rgb(59, 170, 243);
+}
+.my-pagination /deep/ .pagination li.pagination-next a{
+    background: #3498DB;
+}
+.my-pagination /deep/ .pagination li.active a{
+    background: rgb(28, 85, 122);
+} 
