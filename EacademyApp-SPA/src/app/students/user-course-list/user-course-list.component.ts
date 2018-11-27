@@ -10,6 +10,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Course } from '../../_models/course';
 import { PageChangedEvent } from 'ngx-bootstrap';
+import { CourseService } from 'src/app/_services/course.service';
 
 @Component({
   selector: 'app-user-course-list',
@@ -24,8 +25,8 @@ export class UserCourseListComponent implements OnInit {
   previousPageText: string;
   nextPageText: string;
 
-  constructor(private http: HttpClientModule, private studentService: StudentService, private authService: AuthService,
-    private alertify: AlertifyService) { }
+  constructor(private http: HttpClientModule, private studentService: StudentService, private courseService: CourseService,
+    private authService: AuthService, private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.loadCourses();
@@ -33,7 +34,7 @@ export class UserCourseListComponent implements OnInit {
     this.previousPageText = 'Poprzednia';
     this.nextPageText = 'Następna';
   }
-  
+
   loadCourses() {
     this.studentService.getStudent(this.authService.decodedToken.nameid).subscribe((student: Student) => {
       this.student = student;
@@ -41,5 +42,16 @@ export class UserCourseListComponent implements OnInit {
     }, error => {
       this.alertify.error(error);
     });
+  }
+
+  deleteCourseStudent(courseId) {
+    if (confirm('Chcesz wypisać się z tego kursu ?')) {
+       this.courseService.deleteCourseStudent(courseId).subscribe(next => {
+        this.alertify.success('Wypisałeś się z kursu.');
+        this.loadCourses();
+      }, error => {
+        this.alertify.error('Nie udało się wypisać z kursu.');
+      });
+     }
   }
 }
