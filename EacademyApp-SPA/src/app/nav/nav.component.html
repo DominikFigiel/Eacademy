@@ -4,11 +4,7 @@
 
       <ul *ngIf="studentLoggedIn()" class="navbar-nav mr-auto">
         <li class="nav-item" routerLinkActive="active">
-<<<<<<< HEAD
           <a class="nav-link" [routerLink]="['/students']">Użytkownicy</a>
-=======
-          <a class="nav-link" [routerLink]="['/student-list']">Użytkownicy</a>
->>>>>>> e351c261f616061baedf560f82083e5a5de553f6
         </li>
         <li class="nav-item" routerLinkActive="active">
           <a class="nav-link" [routerLink]="['/messages']">Wiadomości</a>
@@ -24,7 +20,7 @@
         </a>
       
         <div class="dropdown-menu mt-3" *dropdownMenu>
-          <a class="dropdown-item" [routerLink]="['/courses']"><i class="fa fa-user"></i> Edytuj profil</a>
+          <a class="dropdown-item" [routerLink]="['/student/edit']"><i class="fa fa-user"></i> Edytuj profil</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" [routerLink]="['/courses']"><i class="fa fa-book"></i> Moje kursy</a>
           <div class="dropdown-divider"></div>

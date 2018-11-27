@@ -4,10 +4,8 @@ import { CourseComponent } from './course/course.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { StudentListComponent } from './students/student-list/student-list.component';
-<<<<<<< HEAD
 import { StudentDetailComponent } from './students/student-detail/student-detail.component';
-=======
->>>>>>> e351c261f616061baedf560f82083e5a5de553f6
+import { StudentEditComponent } from './students/student-edit/student-edit.component';
 
 export const appRoutes: Routes = [
     { path: '', component: HomeComponent},
@@ -18,12 +16,9 @@ export const appRoutes: Routes = [
         children: [
             { path: 'welcome', component: WelcomeComponent},
             { path: 'courses', component: CourseComponent},
-<<<<<<< HEAD
             { path: 'students', component: StudentListComponent},
             { path: 'students/:id', component: StudentDetailComponent},
-=======
-            { path: 'student-list', component: StudentListComponent}
->>>>>>> e351c261f616061baedf560f82083e5a5de553f6
+            { path: 'student/edit', component: StudentEditComponent}
         ]
     },
     { path: '**', redirectTo: '', pathMatch: 'full'}
