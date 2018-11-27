@@ -22,6 +22,8 @@ import { StudentCardComponent } from './students/student-card/student-card.compo
 import { StudentDetailComponent } from './students/student-detail/student-detail.component';
 import { StudentCourseListComponent } from './students/student-course-list/student-course-list.component';
 import { StudentEditComponent } from './students/student-edit/student-edit.component';
+import { StudentEditResolver } from './_resolvers/member-edit.resolver';
+import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -60,7 +62,9 @@ export function tokenGetter() {
       AuthService,
       AlertifyService,
       AuthGuard,
-      StudentService
+      StudentService,
+      StudentEditResolver,
+      PreventUnsavedChanges
    ],
    bootstrap: [
       AppComponent

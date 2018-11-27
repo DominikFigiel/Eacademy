@@ -1,7 +1,8 @@
 using AutoMapper;
 using EacademyApp.API.Dtos;
 using EacademyApp.API.Models;
- namespace EacademyApp.API.Helpers
+
+namespace EacademyApp.API.Helpers
 {
     public class AutoMapperProfiles : Profile
     {
@@ -10,6 +11,7 @@ using EacademyApp.API.Models;
             CreateMap<Student, StudentForListDto>();
             CreateMap<Student, StudentForDetailedDto>();
             CreateMap<CourseStudent, CourseStudentForDetailedDto>();
+            CreateMap<StudentForUpdateDto, Student>();
         }
     }
 }
