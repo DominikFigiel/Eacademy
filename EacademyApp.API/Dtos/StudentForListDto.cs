@@ -4,7 +4,7 @@ using EacademyApp.API.Models;
 
 namespace EacademyApp.API.Dtos
 {
-    public class StudentForDetailedDto
+    public class StudentForListDto
     {
         public int Id { get; set; }
         public string Username { get; set; }

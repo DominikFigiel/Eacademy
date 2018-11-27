@@ -1,0 +1,44 @@
+<div class="container mt-4">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="card">
+          <img class="card-img-top img-thumbnail" src="{{student?.photoURL}}" alt="{{student?.username}}">
+          <div class="card-body">
+            <div>
+              <strong>Student:</strong>
+              <p>{{student?.name}} {{student?.surname}}</p>
+            </div>
+            <div>
+              <strong>Data rejestracji:</strong>
+              <p>{{student?.created | date: 'dd/MM/yyyy'}}</p>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="btn-group d-flex">
+              <button class="btn btn-success w-100">Wyślij wiadomość</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-8">
+        <div class="tab-panel">
+          <tabset class="user-tabset">
+            <tab heading="Informacje ogólne">
+              <div class="container mt-3">
+                <h1>Informacje ogólne</h1>
+                <p class="lead">Info:</p>
+                
+                <h4>Nagłowek 1</h4>
+                <p>Opis</p>
+                <h4>Nagłowek 2</h4>
+                <p>Opis</p>
+              </div>
+            </tab>
+            <tab heading="Kursy">
+              <app-student-course-list [student]="student"></app-student-course-list>
+            </tab>
+          </tabset>
+        </div>
+      </div>
+    </div>
+  </div>

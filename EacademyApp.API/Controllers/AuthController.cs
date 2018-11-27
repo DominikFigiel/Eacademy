@@ -35,12 +35,15 @@ namespace EacademyApp.API.Controllers
             if(await _studentRepo.UserExists(userForRegisterDto.Username))
                 return BadRequest("Username already exists");
 
+            Random r = new Random();
+            var randomPhotoNumber = r.Next(1, 100);
+
             var userToCreate = new Student
             {
                 Username = userForRegisterDto.Username,
                 Name = userForRegisterDto.Name,
                 Surname = userForRegisterDto.Surname,
-                PhotoURL = userForRegisterDto.PhotoURL,
+                PhotoURL = "https://randomuser.me/api/portraits/men/" + randomPhotoNumber + ".jpg",
                 Created = DateTime.Now,
                 EnrollmentDate = DateTime.Now
             };

@@ -1,0 +1,18 @@
+<div class="container mt-3">
+    <h1>Kursy</h1>
+    <p class="lead">Kursy tego studenta:</p>
+
+    <div class="row">
+      <div *ngFor="let cs of student?.courseStudents" class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{cs.course.name}}</h5>
+            <p class="card-text">{{cs.course.description}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6" *ngIf="!(student?.courseStudents.length > 0)">
+        <p>Ten student nie zapisał się jeszcze na żaden kurs.</p>
+      </div>
+    </div>
+</div>

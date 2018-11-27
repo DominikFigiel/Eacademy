@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using EacademyApp.API.Data;
 using Microsoft.AspNetCore.Authorization;
@@ -21,7 +22,11 @@ namespace EacademyApp.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCourses()
         {
-            var courses = await _context.Courses.ToListAsync();
+            // var courses = await _context.Courses.ToListAsync();
+
+            var courses = await _context.Courses.Include(c => c.CourseStudents).ThenInclude(cs => cs.Student).ToListAsync();
+
+            //var courses = await _context.CourseStudents.Include(cs => cs.Student).ToListAsync();
 
             return Ok(courses);
         }
