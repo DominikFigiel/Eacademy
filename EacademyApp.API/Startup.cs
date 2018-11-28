@@ -70,8 +70,7 @@ namespace EacademyApp.API
             // app.UseHttpsRedirection();
 
             // Seed users and data
-            //seeder.SeedStudents();
-            // (ToDo) seeder.SeedTeachers();
+            //seeder.SeedData();
             //
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());

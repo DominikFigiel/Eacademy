@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,6 +9,7 @@ using EacademyApp.API.Data;
 using EacademyApp.API.Dtos;
 using EacademyApp.API.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
@@ -18,11 +21,13 @@ namespace EacademyApp.API.Controllers
     {
         private readonly IAuthStudentRepository _studentRepo;
         private readonly IConfiguration _config;
+        private readonly DataContext _context;
 
-        public AuthController(IAuthStudentRepository studentRepo, IConfiguration config)
+        public AuthController(IAuthStudentRepository studentRepo, IConfiguration config, DataContext context)
         {
             _config = config;
             _studentRepo = studentRepo;
+            _context = context;
         }
 
         [HttpPost("studentRegister")]
@@ -61,11 +66,18 @@ namespace EacademyApp.API.Controllers
             if(userFromRepo == null)
                 return Unauthorized();
 
-            var claims = new[]
+            var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
                 new Claim(ClaimTypes.Name, userFromRepo.Username)
             };
+
+            var roles = await _context.Roles.Include(r => r.StudentRoles).Where(r => r.StudentRoles.Any(sr => sr.StudentId == userFromRepo.Id)).ToListAsync();
+            
+            foreach(var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role.Name));
+            }
         
             var key = new SymmetricSecurityKey(Encoding.UTF8
                 .GetBytes(_config.GetSection("AppSettings:Token").Value));

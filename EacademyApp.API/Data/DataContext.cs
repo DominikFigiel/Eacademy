@@ -13,9 +13,11 @@ namespace EacademyApp.API.Data
         public DbSet<CourseStudent> CourseStudents { get; set; }
         public DbSet<Module> Modules { get; set; }
 
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<StudentRole> StudentRoles { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-<<<<<<< HEAD
             modelBuilder.Entity<Student>()
                 .HasAlternateKey(s => s.Username)
                 .HasName("AlternateKey_Username");
@@ -32,11 +34,23 @@ namespace EacademyApp.API.Data
                 .HasOne(cs => cs.Student)
                 .WithMany(s => s.CourseStudents)
                 .HasForeignKey(cs => cs.StudentId);
-=======
-        modelBuilder.Entity<Student>()
-            .HasAlternateKey(s => s.Username)
-            .HasName("AlternateKey_Username");
->>>>>>> e351c261f616061baedf560f82083e5a5de553f6
+
+
+            modelBuilder.Entity<StudentRole>()
+                .HasKey(sr => new { sr.StudentId, sr.RoleId });
+
+            modelBuilder.Entity<StudentRole>()
+                .HasOne(cs => cs.Role)
+                .WithMany(c => c.StudentRoles)
+                .HasForeignKey(cs => cs.RoleId)
+                .IsRequired();   
+
+            modelBuilder.Entity<StudentRole>()
+                .HasOne(cs => cs.Student)
+                .WithMany(c => c.StudentRoles)
+                .HasForeignKey(cs => cs.StudentId)
+                .IsRequired();         
+
         }
     }
 }

@@ -14,6 +14,7 @@ namespace EacademyApp.API.Models
         public string PhotoURL { get; set; }
         public DateTime Created { get; set; }
         public DateTime EnrollmentDate { get; set; }
-        public ICollection<CourseStudent> CourseStudents { get; } = new List<CourseStudent>();
+        public ICollection<CourseStudent> CourseStudents { get; set; }
+        public ICollection<StudentRole> StudentRoles { get; set; }
     }
 }
