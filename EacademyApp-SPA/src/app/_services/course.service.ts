@@ -47,4 +47,20 @@ export class CourseService {
     );
   }
 
+  addCourse(model: any) {
+    return this.http.post(
+      this.baseUrl + 'courses/' + 'addCourse', model
+    );
+  }
+
+  getCoursesForList() {
+    return this.http.get(this.baseUrl + 'admin/coursesForList');
+  }
+
+  deleteCourse(courseId: number) {
+    return this.http.delete(
+      this.baseUrl + 'courses/' + courseId + '/deleteCourse', {}
+    );
+  }
+
 }

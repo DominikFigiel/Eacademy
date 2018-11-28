@@ -1,4 +1,3 @@
-import { UserManagementComponent } from './admin/user-management/user-management.component';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -32,6 +31,8 @@ import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { HasRoleDirective } from './_directives/hasRole.directive';
 import { AdminService } from './_services/admin.service';
 import { RolesModalComponent } from './admin/roles-modal/roles-modal.component';
+import { UserManagementComponent } from './admin/user-management/user-management.component';
+import { CourseManagementComponent } from './admin/course-management/course-management.component';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -55,7 +56,8 @@ export function tokenGetter() {
       AdminPanelComponent,
       HasRoleDirective,
       UserManagementComponent,
-      RolesModalComponent
+      RolesModalComponent,
+      CourseManagementComponent
    ],
    imports: [
       BrowserModule,

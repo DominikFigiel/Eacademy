@@ -112,5 +112,25 @@ namespace EacademyApp.API.Controllers
 
             return BadRequest("Could not delete the student from the course.");
         }
+
+        [HttpPost("addCourse")]
+        public async Task<IActionResult> AddCourse(Course course)
+        {
+            await _context.Courses.AddAsync(course);
+            await _context.SaveChangesAsync();
+
+            return Ok(await _context.Courses.ToListAsync());
+        }
+
+        [HttpDelete("{courseId}/deleteCourse")]
+        public async Task<IActionResult> DeleteCourse(int courseId)
+        {
+            Course course = _context.Courses.Where(x => x.Id == courseId).Single < Course > ();
+            _context.Courses.Remove(course); 
+
+            await _context.SaveChangesAsync();
+
+            return Ok(await _context.Courses.ToListAsync());
+        }
     }
 }

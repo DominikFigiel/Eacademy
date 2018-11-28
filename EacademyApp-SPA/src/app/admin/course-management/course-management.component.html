@@ -1,0 +1,38 @@
+<div class="container mt-3">
+  <div>
+    <p class="lead">Dodaj nowy kurs</p>
+    <hr>
+
+      <form #addCourseForm="ngForm" id="addCourseForm" (ngSubmit)="addCourse()">
+        <div class="form-group">
+          <label for="courseName">Nazwa kursu</label>
+          <input type="text" class="form-control" id="courseName" name="courseName" [(ngModel)]="model.name" placeholder="Wpisz nazwę kursu" required>
+        </div>
+        <div class="form-group">
+          <label for="courseDescription">Opis kursu</label>
+          <input type="text" class="form-control" id="courseDescription" name="courseDescription" [(ngModel)]="model.description" placeholder="Wpisz opis kursu" required>
+        </div>
+        <button type="submit" [disabled]="!addCourseForm.valid" class="btn btn-primary btn-block">Dodaj kurs</button>
+        <small *ngIf="!addCourseForm.valid" class="form-text text-muted">Wypełnij wszystkie pola, aby móc dodać kurs.</small>
+      </form>
+
+  </div>
+  <hr>
+  <p class="lead">Lista kursów</p>
+  <div class="row">
+      <table class="table">
+        <tr>
+          <th style="width: 10%">ID</th>
+          <th style="width: 30%">Nazwa kursu</th>
+          <th style="width: 40%">Opis kursu</th>
+          <th style="width: 20%"></th>
+        </tr>
+        <tr *ngFor="let course of coursesForList">
+          <td>{{course.id}}</td>
+          <td>{{course.name}}</td>
+          <td>{{course.description}}</td>
+          <td><button class="btn btn-danger" (click)="deleteCourseOnConfirm(course.id)">Usuń kurs</button></td>
+        </tr>
+      </table>
+    </div>
+</div>

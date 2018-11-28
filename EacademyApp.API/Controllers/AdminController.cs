@@ -39,6 +39,20 @@ namespace EacademyApp.API.Controllers
             return Ok(userList);
         }
 
+        [HttpGet("coursesForList")]
+        public async Task<IActionResult> GetCoursesForList()
+        {
+            var courseList = await (from course in _context.Courses orderby course.Name
+                select new
+                {
+                    Id = course.Id,
+                    Name = course.Name,
+                    Description = course.Description
+                }).ToListAsync();
+
+            return Ok(courseList);
+        }
+
         [HttpPost("editRoles/{username}")]
         public async Task<IActionResult> EditRoles(string username, RoleEditDto roleEditDto)
         {

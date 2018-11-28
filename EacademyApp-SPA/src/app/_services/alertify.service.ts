@@ -8,12 +8,12 @@ export class AlertifyService {
 
     constructor() { }
 
-  confirm(message: string, okCallback: () => any) {
+  confirm(title: string, message: string, okCallback: () => any) {
     alertify.confirm(message, function(e) {
       if (e) {
         okCallback();
       } else {}
-    });
+    }).set('title', title).set('labels', {ok: 'Potwierdź', cancel: 'Anuluj'});
   }
 
   success(message: string) {
