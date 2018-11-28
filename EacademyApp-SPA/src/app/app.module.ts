@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { BsDropdownModule, TabsModule, PaginationModule } from 'ngx-bootstrap';
+import { BsDropdownModule, TabsModule, PaginationModule, ModalModule } from 'ngx-bootstrap';
 import { JwtModule } from '@auth0/angular-jwt';
 
 import { AppComponent } from './app.component';
@@ -31,6 +31,7 @@ import { CourseComponent } from './courses/course/course.component';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { HasRoleDirective } from './_directives/hasRole.directive';
 import { AdminService } from './_services/admin.service';
+import { RolesModalComponent } from './admin/roles-modal/roles-modal.component';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -53,7 +54,8 @@ export function tokenGetter() {
       CourseComponent,
       AdminPanelComponent,
       HasRoleDirective,
-      UserManagementComponent
+      UserManagementComponent,
+      RolesModalComponent
    ],
    imports: [
       BrowserModule,
@@ -63,6 +65,7 @@ export function tokenGetter() {
       TabsModule.forRoot(),
       PaginationModule.forRoot(),
       RouterModule.forRoot(appRoutes),
+      ModalModule.forRoot(),
       JwtModule.forRoot({
           config: {
             tokenGetter: tokenGetter,
@@ -81,6 +84,9 @@ export function tokenGetter() {
       PreventUnsavedChanges,
       CourseService,
       AdminService
+   ],
+   entryComponents: [
+      RolesModalComponent
    ],
    bootstrap: [
       AppComponent
