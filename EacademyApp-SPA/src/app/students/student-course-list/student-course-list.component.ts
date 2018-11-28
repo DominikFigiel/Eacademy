@@ -1,28 +1,18 @@
-/* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Student } from 'src/app/_models/student';
+import { Course } from 'src/app/_models/course';
 
-import { StudentCourseListComponent } from './student-course-list.component';
+@Component({
+  selector: 'app-student-course-list',
+  templateUrl: './student-course-list.component.html',
+  styleUrls: ['./student-course-list.component.css']
+})
+export class StudentCourseListComponent implements OnInit {
+  @Input() student: Student;
 
-describe('StudentCourseListComponent', () => {
-  let component: StudentCourseListComponent;
-  let fixture: ComponentFixture<StudentCourseListComponent>;
+  constructor() { }
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ StudentCourseListComponent ]
-    })
-    .compileComponents();
-  }));
+  ngOnInit() {
+  }
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(StudentCourseListComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+}

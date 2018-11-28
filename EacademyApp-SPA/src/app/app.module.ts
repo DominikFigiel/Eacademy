@@ -1,3 +1,4 @@
+import { UserManagementComponent } from './admin/user-management/user-management.component';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -28,6 +29,8 @@ import { CourseService } from './_services/course.service';
 import { UserCourseListComponent } from './students/user-course-list/user-course-list.component';
 import { CourseComponent } from './courses/course/course.component';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { HasRoleDirective } from './_directives/hasRole.directive';
+import { AdminService } from './_services/admin.service';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -48,7 +51,9 @@ export function tokenGetter() {
       StudentEditComponent,
       UserCourseListComponent,
       CourseComponent,
-      AdminPanelComponent
+      AdminPanelComponent,
+      HasRoleDirective,
+      UserManagementComponent
    ],
    imports: [
       BrowserModule,
@@ -74,7 +79,8 @@ export function tokenGetter() {
       StudentService,
       StudentEditResolver,
       PreventUnsavedChanges,
-      CourseService
+      CourseService,
+      AdminService
    ],
    bootstrap: [
       AppComponent

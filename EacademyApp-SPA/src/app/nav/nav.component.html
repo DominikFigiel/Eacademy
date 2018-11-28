@@ -15,7 +15,7 @@
         <li class="nav-item" routerLinkActive="active">
           <a class="nav-link" [routerLink]="['student/courses']">Moje kursy</a>
         </li>
-        <li class="nav-item" routerLinkActive="active">
+        <li *appHasRole="['Admin','Instructor']" class="nav-item" routerLinkActive="active">
           <a class="nav-link" [routerLink]="['/admin']">Admin</a>
         </li>
         

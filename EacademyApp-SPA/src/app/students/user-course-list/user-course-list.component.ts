@@ -17,7 +17,6 @@ import { CourseService } from 'src/app/_services/course.service';
   templateUrl: './user-course-list.component.html',
   styleUrls: ['./user-course-list.component.css']
 })
-
 export class UserCourseListComponent implements OnInit {
   student: Student;
   currentCoursesPageContent: any;
@@ -29,10 +28,16 @@ export class UserCourseListComponent implements OnInit {
     private authService: AuthService, private alertify: AlertifyService) { }
 
   ngOnInit() {
-    this.loadCourses();
     this.itemsPerPage = 4;
     this.previousPageText = 'Poprzednia';
     this.nextPageText = 'Następna';
+    this.loadCourses();
+  }
+
+  pageChanged(event: PageChangedEvent): void {
+    const startItem = (event.page - 1) * event.itemsPerPage;
+    const endItem = event.page * event.itemsPerPage;
+    this.currentCoursesPageContent = this.student.courseStudents.slice(startItem, endItem);
   }
 
   loadCourses() {
@@ -46,12 +51,14 @@ export class UserCourseListComponent implements OnInit {
 
   deleteCourseStudent(courseId) {
     if (confirm('Chcesz wypisać się z tego kursu ?')) {
-       this.courseService.deleteCourseStudent(courseId).subscribe(next => {
+
+      this.courseService.deleteCourseStudent(courseId).subscribe(next => {
         this.alertify.success('Wypisałeś się z kursu.');
         this.loadCourses();
       }, error => {
         this.alertify.error('Nie udało się wypisać z kursu.');
       });
-     }
+
+    }
   }
 }

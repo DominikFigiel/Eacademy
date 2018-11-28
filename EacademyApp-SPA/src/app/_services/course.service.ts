@@ -5,17 +5,17 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Course } from '../_models/course';
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class CourseService {
   baseUrl = environment.apiUrl;
   courseStudents: CourseStudents;
-  constructor(private http: HttpClient, private authService: AuthService,
-    private alertify: AlertifyService) { }
+
+  constructor(private http: HttpClient, private authService: AuthService, private alertify: AlertifyService) { }
 
   getCourses(): Observable<Course[]> {
     return this.http.get<Course[]>(this.baseUrl + 'courses/');
@@ -40,4 +40,11 @@ export class CourseService {
         );
     */
   }
+
+  deleteCourseStudent(courseId: number) {
+    return this.http.delete(
+      this.baseUrl + 'courses/' + courseId + '/deleteCourseStudent', {}
+    );
+  }
+
 }
