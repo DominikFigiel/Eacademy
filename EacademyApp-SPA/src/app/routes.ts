@@ -1,7 +1,8 @@
+import { CourseComponent } from './courses/course/course.component';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { CourseComponent } from './course/course.component';
+import { CourseListComponent } from './courses/course-list/course-list.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { StudentListComponent } from './students/student-list/student-list.component';
@@ -9,6 +10,7 @@ import { StudentDetailComponent } from './students/student-detail/student-detail
 import { StudentEditComponent } from './students/student-edit/student-edit.component';
 import { StudentEditResolver } from './_resolvers/member-edit.resolver';
 import { UserCourseListComponent } from './students/user-course-list/user-course-list.component';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 
 export const appRoutes: Routes = [
     { path: '', component: HomeComponent},
@@ -25,6 +27,7 @@ export const appRoutes: Routes = [
             { path: 'student/edit', component: StudentEditComponent,
                 resolve: {student: StudentEditResolver}, canDeactivate: [PreventUnsavedChanges]},
             { path: 'student/courses', component: UserCourseListComponent},
+            { path: 'admin', component: AdminPanelComponent, data: {roles: ['Admin', 'Instructor']}}
         ]
     },
     { path: '**', redirectTo: '', pathMatch: 'full'}

@@ -7,7 +7,7 @@ import { BsDropdownModule, TabsModule, PaginationModule } from 'ngx-bootstrap';
 import { JwtModule } from '@auth0/angular-jwt';
 
 import { AppComponent } from './app.component';
-import { CourseComponent } from './course/course.component';
+import { CourseListComponent } from './courses/course-list/course-list.component';
 import { NavComponent } from './nav/nav.component';
 import { AuthService } from './_services/auth.service';
 import { HomeComponent } from './home/home.component';
@@ -26,7 +26,8 @@ import { StudentEditResolver } from './_resolvers/member-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { CourseService } from './_services/course.service';
 import { UserCourseListComponent } from './students/user-course-list/user-course-list.component';
-import { CourseListComponent } from './courses/course-list/course-list.component';
+import { CourseComponent } from './courses/course/course.component';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -35,7 +36,6 @@ export function tokenGetter() {
 @NgModule({
    declarations: [
       AppComponent,
-      CourseComponent,
       CourseListComponent,
       NavComponent,
       HomeComponent,
@@ -46,15 +46,17 @@ export function tokenGetter() {
       StudentDetailComponent,
       StudentCourseListComponent,
       StudentEditComponent,
-      UserCourseListComponent
+      UserCourseListComponent,
+      CourseComponent,
+      AdminPanelComponent
    ],
    imports: [
       BrowserModule,
       HttpClientModule,
       FormsModule,
       BsDropdownModule.forRoot(),
-      PaginationModule.forRoot(),
       TabsModule.forRoot(),
+      PaginationModule.forRoot(),
       RouterModule.forRoot(appRoutes),
       JwtModule.forRoot({
           config: {
@@ -62,16 +64,17 @@ export function tokenGetter() {
             whitelistedDomains: ['localhost:5000'],
             blacklistedRoutes: ['localhost:5000/api/auth']
           }
-      })
+      }),
+      PaginationModule.forRoot()
    ],
    providers: [
       AuthService,
       AlertifyService,
       AuthGuard,
-      CourseService,
       StudentService,
       StudentEditResolver,
-      PreventUnsavedChanges
+      PreventUnsavedChanges,
+      CourseService
    ],
    bootstrap: [
       AppComponent

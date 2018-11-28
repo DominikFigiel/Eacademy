@@ -15,6 +15,10 @@
         <li class="nav-item" routerLinkActive="active">
           <a class="nav-link" [routerLink]="['student/courses']">Moje kursy</a>
         </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/admin']">Admin</a>
+        </li>
+        
       </ul>
   
       <div *ngIf="studentLoggedIn()" class="dropdown" dropdown>
