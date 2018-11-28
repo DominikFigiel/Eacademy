@@ -41,7 +41,7 @@ namespace EacademyApp.API.Data
 
         public async Task<IEnumerable<Student>> GetStudents()
         {
-            var users = await _context.Students.ToListAsync();
+            var users = await _context.Students.Where(s => s.Username != "admin").ToListAsync();
 
             return users;
         }

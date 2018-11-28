@@ -2,14 +2,21 @@
   <h2>Panel administracyjny</h2>
   <div class="tab-panel">
     <tabset class="user-tabset">
-      <tab heading="Zarządzanie kursami">
+      <tab  *appHasRole="['Administrator']" heading="Zarządzanie kursami (Administrator)">
         <div class="container">
             <app-course-management></app-course-management>
         </div>
       </tab>
-      <tab heading="Zarządzanie uprawnieniami">
+      <tab *appHasRole="['Administrator']" heading="Zarządzanie uprawnieniami">
         <div class="container">
             <app-user-management></app-user-management>
+        </div>
+      </tab>
+      <tab *appHasRole="['Instructor']" heading="Zarządzanie kursami (Instruktor)">
+        <div class="container">
+          <div class="container mt-5">
+            Tutaj profesor będzie mógł zarządzać materiałami do prowadzonych przez niego kursów.
+          </div>
         </div>
       </tab>
     </tabset>
