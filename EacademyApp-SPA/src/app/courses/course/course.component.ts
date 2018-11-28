@@ -9,16 +9,16 @@ import { AlertifyService } from 'src/app/_services/alertify.service';
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.css']
 })
-
 export class CourseComponent implements OnInit {
   course: Course;
+
   constructor(private courseService: CourseService, private route: ActivatedRoute,
       private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.loadCourse();
   }
-  
+
   loadCourse() {
     // znak + sprawia ze params['id'] (string) jest zamieniany na liczbe
     this.courseService.getCourse(+this.route.snapshot.params['id']).subscribe((course: Course) => {
@@ -27,4 +27,5 @@ export class CourseComponent implements OnInit {
       this.alertify.error(error);
     });
   }
+
 }

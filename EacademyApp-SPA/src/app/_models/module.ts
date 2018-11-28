@@ -1,5 +1,6 @@
 import { Course } from './course';
- export interface Module {
+
+export interface Module {
     id: number;
     name: string;
     description: string;

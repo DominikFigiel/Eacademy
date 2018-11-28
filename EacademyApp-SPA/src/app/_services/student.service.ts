@@ -23,5 +23,4 @@ export class StudentService {
   updateStudent(id: number, student: Student) {
     return this.http.put(this.baseUrl + 'students/' + id, student);
   }
-
 }

@@ -40,8 +40,8 @@ namespace EacademyApp.API.Controllers
             if(await _studentRepo.UserExists(userForRegisterDto.Username))
                 return BadRequest("Username already exists");
 
-            Random r = new Random();
-            var randomPhotoNumber = r.Next(1, 100);
+            Random random = new Random();
+            var randomPhotoNumber = random.Next(1, 100);
 
             var userToCreate = new Student
             {
@@ -54,6 +54,15 @@ namespace EacademyApp.API.Controllers
             };
 
             var createdUser = await _studentRepo.Register(userToCreate, userForRegisterDto.Password);
+
+            // role
+            var r = _context.Roles.FirstOrDefault(x => x.Name == "Student");
+            if (r != null) {
+                var sr = new StudentRole { Student = createdUser, Role = r };
+                _context.StudentRoles.AddAsync(sr).Wait();
+                _context.SaveChangesAsync().Wait();
+            }
+            //
 
             return StatusCode(201);
         }

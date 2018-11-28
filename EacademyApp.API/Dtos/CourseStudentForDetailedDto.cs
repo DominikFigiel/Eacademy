@@ -1,5 +1,6 @@
 using EacademyApp.API.Models;
- namespace EacademyApp.API.Dtos
+
+namespace EacademyApp.API.Dtos
 {
     public class CourseStudentForDetailedDto
     {

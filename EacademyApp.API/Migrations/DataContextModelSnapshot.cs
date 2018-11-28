@@ -25,7 +25,7 @@ namespace EacademyApp.API.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int>("TeacherId");
+                    b.Property<int?>("TeacherId");
 
                     b.HasKey("Id");
 
@@ -36,20 +36,15 @@ namespace EacademyApp.API.Migrations
 
             modelBuilder.Entity("EacademyApp.API.Models.CourseStudent", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
                     b.Property<int>("CourseId");
 
                     b.Property<int>("StudentId");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("CourseId");
+                    b.HasKey("CourseId", "StudentId");
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("CourseStudent");
+                    b.ToTable("CourseStudents");
                 });
 
             modelBuilder.Entity("EacademyApp.API.Models.Module", b =>
@@ -72,6 +67,18 @@ namespace EacademyApp.API.Migrations
                     b.ToTable("Modules");
                 });
 
+            modelBuilder.Entity("EacademyApp.API.Models.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+                });
+
             modelBuilder.Entity("EacademyApp.API.Models.Student", b =>
                 {
                     b.Property<int>("Id")
@@ -91,11 +98,28 @@ namespace EacademyApp.API.Migrations
 
                     b.Property<string>("Surname");
 
-                    b.Property<string>("Username");
+                    b.Property<string>("Username")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
+                    b.HasAlternateKey("Username")
+                        .HasName("AlternateKey_Username");
+
                     b.ToTable("Students");
+                });
+
+            modelBuilder.Entity("EacademyApp.API.Models.StudentRole", b =>
+                {
+                    b.Property<int>("StudentId");
+
+                    b.Property<int>("RoleId");
+
+                    b.HasKey("StudentId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("StudentRoles");
                 });
 
             modelBuilder.Entity("EacademyApp.API.Models.Teacher", b =>
@@ -115,8 +139,6 @@ namespace EacademyApp.API.Migrations
 
                     b.Property<string>("PhotoURL");
 
-                    b.Property<string>("Position");
-
                     b.Property<string>("Surname");
 
                     b.Property<string>("Username");
@@ -128,10 +150,9 @@ namespace EacademyApp.API.Migrations
 
             modelBuilder.Entity("EacademyApp.API.Models.Course", b =>
                 {
-                    b.HasOne("EacademyApp.API.Models.Teacher", "Teacher")
+                    b.HasOne("EacademyApp.API.Models.Teacher")
                         .WithMany("Courses")
-                        .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("TeacherId");
                 });
 
             modelBuilder.Entity("EacademyApp.API.Models.CourseStudent", b =>
@@ -152,6 +173,19 @@ namespace EacademyApp.API.Migrations
                     b.HasOne("EacademyApp.API.Models.Course", "Course")
                         .WithMany("Modules")
                         .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("EacademyApp.API.Models.StudentRole", b =>
+                {
+                    b.HasOne("EacademyApp.API.Models.Role", "Role")
+                        .WithMany("StudentRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("EacademyApp.API.Models.Student", "Student")
+                        .WithMany("StudentRoles")
+                        .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

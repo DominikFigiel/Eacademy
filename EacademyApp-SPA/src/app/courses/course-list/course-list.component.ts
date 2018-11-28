@@ -1,9 +1,9 @@
+import { AlertifyService } from 'src/app/_services/alertify.service';
+import { AuthService } from '../../_services/auth.service';
+import { CourseService } from '../../_services/course.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { PageChangedEvent } from 'ngx-bootstrap';
-import { CourseService } from '../../_services/course.service';
-import { AuthService } from '../../_services/auth.service';
-import { AlertifyService } from '../../_services/alertify.service';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -24,7 +24,7 @@ export class CourseListComponent implements OnInit {
   nextPageText: string;
 
   constructor(private http: HttpClient, private courseService: CourseService, private authService: AuthService,
-    private alertify: AlertifyService) { }
+      private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.getCourses();

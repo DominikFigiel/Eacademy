@@ -1,29 +1,32 @@
 <div class="container mt-5">
   <h1>Kursy</h1>
   <p class="lead">Twoje kursy:</p>
+
   <div class="row">
     <div *ngFor="let cs of currentCoursesPageContent" class="col-sm-6 mb-4">
       <div class="card">
         <div class="card-body">
           <div class="row">
-            <div class="col">
-              <h5 class="card-title">{{cs.course.name}}</h5>
+              <div class="col-9">
+                <h5 class="card-title">{{cs.course.name}}</h5>
+              </div>
+              <div class="col-3">
+                <div class="btn-group  float-right" dropdown>
+                    <button id="button-basic" dropdownToggle type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" aria-controls="dropdown-basic">
+                      Opcje<span class="caret"></span>
+                    </button>
+                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+                        role="menu" aria-labelledby="button-basic">
+                      <li role="menuitem"><a class="dropdown-item delete" (click)="deleteCourseStudent(cs.course.id)">Wypisz się z kursu</a>
+                      </li>
+                    </ul>
+                  </div>
+              </div>
             </div>
-            <div class="col">
-              <div class="btn-group  float-right" dropdown>
-                  <button id="button-basic" dropdownToggle type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" aria-controls="dropdown-basic">
-                    Opcje<span class="caret"></span>
-                  </button>
-                  <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
-                      role="menu" aria-labelledby="button-basic">
-                    <li role="menuitem"><a class="dropdown-item delete" (click)="deleteCourseStudent(cs.course.id)">Wypisz się z kursu</a>
-                    </li>
-                  </ul>
-                </div>
-            </div>
-          </div>
+          
+          
           <p class="card-text">{{cs.course.description}}</p>
-          <a routerLink="/courses/{{cs.course.id}}"><button class="btn btn-info btn-block">Przejdź na stronę kursu</button></a>
+          <a routerLink="/courses/{{cs.course.id}}"><button class="btn btn-info btn-block" >Przejdź na stronę kursu</button></a>
         </div>
       </div>
     </div>
@@ -32,7 +35,14 @@
       <a routerLink="/courses/"><button class="btn btn-info btn-block" >Przejdź na stronę kursów</button></a>
     </div>
   </div>
-  <pagination [totalItems]="student?.courseStudents.length" [previousText]=previousPageText [nextText]=nextPageText
-    [itemsPerPage]=itemsPerPage class='my-pagination' (pageChanged)="pageChanged($event)">
+
+  <pagination 
+    [totalItems]="student?.courseStudents.length" 
+    [previousText]=previousPageText 
+    [nextText]=nextPageText 
+    [itemsPerPage]=itemsPerPage 
+    class= 'my-pagination'
+    (pageChanged)="pageChanged($event)">
   </pagination>
+  
 </div>

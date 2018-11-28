@@ -1,7 +1,8 @@
 import { Student } from './student';
 import { Module } from './module';
 import { CourseStudents } from './courseStudents';
- export interface Course {
+
+export interface Course {
     id: number;
     name: string;
     description: string;
