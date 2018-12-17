@@ -48,6 +48,12 @@ export class CourseService {
     );
   }
 
+  addModule(courseId: number, model: any) {
+    return this.http.post(
+      this.baseUrl + 'courses/' + courseId + '/addModule/', model
+    );
+  }
+
   addCourse(model: any) {
     return this.http.post(
       this.baseUrl + 'courses/' + 'addCourse', model

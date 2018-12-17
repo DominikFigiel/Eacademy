@@ -142,6 +142,18 @@ namespace EacademyApp.API.Controllers
             return Ok(await _context.Courses.Include(c => c.Instructor).ToListAsync());
         }
 
+        [HttpPost("{courseId}/addModule")]
+        public async Task<IActionResult> AddModule(int courseId, Module module)
+        {
+           var course = await _context.Courses.Include(c => c.Modules).Include(c => c.Instructor).FirstOrDefaultAsync(x => x.Id == courseId);
+
+           course.Modules.Add(module);
+           
+           await _context.SaveChangesAsync();
+           
+           return Ok(course);
+        }
+
         [HttpPut("{id}/setInstructor/{instructorId}")]
         public async Task<IActionResult> EditCategory(int id, int instructorId)
         {
