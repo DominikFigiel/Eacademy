@@ -46,6 +46,15 @@ namespace EacademyApp.API.Controllers
             return Ok(course);
         }
 
+        [HttpGet("coursesByInstructor/{id}")]
+        public async Task<IActionResult> GetCoursesByInstructor(int id)
+        {
+            var courses = await _context.Courses.Include(c => c.CourseStudents).ThenInclude(cs => cs.Student).Include(c => c.Instructor)
+                .Where(c => c.Instructor.Id == id).ToListAsync();
+
+            return Ok(courses);
+        }
+
         // POST api/courses
         [HttpPost]
         public void Post([FromBody] string course)

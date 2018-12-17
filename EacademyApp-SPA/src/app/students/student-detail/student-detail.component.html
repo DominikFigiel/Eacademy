@@ -23,6 +23,12 @@
       <div class="col-sm-8">
         <div class="tab-panel">
           <tabset class="user-tabset">
+            <tab *ngIf="student?.isInstructor" heading="Kursy instruktora">
+              <app-instructor-course-list *ngIf="student" [student]="student"></app-instructor-course-list>
+            </tab>
+            <tab heading="Kursy">
+              <app-student-course-list *ngIf="student" [student]="student"></app-student-course-list>
+            </tab>
             <tab heading="Informacje ogólne">
               <div class="container mt-3">
                 <h1>Informacje ogólne</h1>
@@ -33,9 +39,6 @@
                 <h4>Nagłowek 2</h4>
                 <p>Opis</p>
               </div>
-            </tab>
-            <tab heading="Kursy">
-              <app-student-course-list [student]="student"></app-student-course-list>
             </tab>
           </tabset>
         </div>

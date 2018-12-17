@@ -34,6 +34,7 @@ import { RolesModalComponent } from './admin/roles-modal/roles-modal.component';
 import { UserManagementComponent } from './admin/user-management/user-management.component';
 import { CourseManagementComponent } from './admin/course-management/course-management.component';
 import { CourseInstructorModalComponent } from './admin/course-instructor-modal/course-instructor-modal.component';
+import { InstructorCourseListComponent } from './students/instructor-course-list/instructor-course-list.component';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -59,7 +60,8 @@ export function tokenGetter() {
       UserManagementComponent,
       RolesModalComponent,
       CourseManagementComponent,
-      CourseInstructorModalComponent
+      CourseInstructorModalComponent,
+      InstructorCourseListComponent
    ],
    imports: [
       BrowserModule,
