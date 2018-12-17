@@ -94,6 +94,12 @@ namespace EacademyApp.API.Data
             _context.StudentRoles.AddAsync(sr).Wait();
             /*  */
 
+            /* Adding course instructor */
+
+            course.Instructor = instructor;
+
+            /* */
+
             /* Administrator */
             Student admin = new Student
             {
@@ -118,12 +124,13 @@ namespace EacademyApp.API.Data
 
             /*  */
 
-            Teacher teacher = new Teacher
-            {
-                Username = "testowyTeacher"
-            };
-            teacher.Courses = new Collection<Course> {course};
-            _context.Teachers.Add(teacher);
+            // Teacher teacher = new Teacher
+            // {
+            //     Username = "testowyTeacher"
+            // };
+            // teacher.Courses = new Collection<Course> {course};
+            // _context.Teachers.Add(teacher);
+
 
 
             /* */

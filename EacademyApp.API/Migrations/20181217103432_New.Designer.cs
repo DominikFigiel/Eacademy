@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EacademyApp.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20181114115920_New")]
+    [Migration("20181217103432_New")]
     partial class New
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,13 +25,13 @@ namespace EacademyApp.API.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("Name");
+                    b.Property<int?>("InstructorId");
 
-                    b.Property<int?>("TeacherId");
+                    b.Property<string>("Name");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TeacherId");
+                    b.HasIndex("InstructorId");
 
                     b.ToTable("Courses");
                 });
@@ -152,9 +152,9 @@ namespace EacademyApp.API.Migrations
 
             modelBuilder.Entity("EacademyApp.API.Models.Course", b =>
                 {
-                    b.HasOne("EacademyApp.API.Models.Teacher")
-                        .WithMany("Courses")
-                        .HasForeignKey("TeacherId");
+                    b.HasOne("EacademyApp.API.Models.Student", "Instructor")
+                        .WithMany()
+                        .HasForeignKey("InstructorId");
                 });
 
             modelBuilder.Entity("EacademyApp.API.Models.CourseStudent", b =>
