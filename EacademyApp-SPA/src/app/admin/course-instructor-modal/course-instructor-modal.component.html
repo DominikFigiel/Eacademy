@@ -1,0 +1,30 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left">Wybór instruktora dla kursu: {{course.name}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <form #courseInstructorForm="ngForm" id="courseInstructorForm">
+
+      <div class="form-group">
+          <label for="cityId">Instruktor:</label>
+      
+          <select [(ngModel)]="instructorId" class="form-control" name="instructorId">
+            <option *ngFor="let instructor of instructors" [ngValue]="instructor.id">
+              {{instructor.name}} {{instructor.surname}}
+            </option>
+          </select>
+        </div>
+
+    </form>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">Anuluj</button>
+    <button type="button" class="btn btn-success" (click)="update()" form="courseInstructorForm">Zapisz</button>
+  </div>
+
+<!-- <p>Form value: {{courseInstructorForm.value | json}}</p>
+<p>Form value: {{courseInstructorForm.status | json}}</p> -->

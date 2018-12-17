@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EacademyApp.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20181217103432_New")]
+    [Migration("20181217130339_New")]
     partial class New
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -89,6 +89,8 @@ namespace EacademyApp.API.Migrations
                     b.Property<DateTime>("Created");
 
                     b.Property<DateTime>("EnrollmentDate");
+
+                    b.Property<bool>("IsInstructor");
 
                     b.Property<string>("Name");
 

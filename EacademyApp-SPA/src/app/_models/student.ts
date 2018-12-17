@@ -11,4 +11,5 @@ export interface Student {
     enrollmentDate: string;
     courseStudents?: CourseStudents[];
     roles?: string[];
+    isInstructor?: boolean;
 }

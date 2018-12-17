@@ -23,15 +23,26 @@
       <table class="table">
         <tr>
           <th style="width: 10%">ID</th>
-          <th style="width: 30%">Nazwa kursu</th>
-          <th style="width: 40%">Opis kursu</th>
-          <th style="width: 20%"></th>
+          <th style="width: 20%">Nazwa kursu</th>
+          <th style="width: 30%">Opis kursu</th>
+          <th style="width: 10%">Instruktor</th>
+          <th style="width: 15%"></th>
+          <th style="width: 15%"></th>
         </tr>
         <tr *ngFor="let course of coursesForList">
           <td>{{course.id}}</td>
           <td>{{course.name}}</td>
           <td>{{course.description}}</td>
-          <td><button class="btn btn-danger" (click)="deleteCourseOnConfirm(course.id)">Usuń kurs</button></td>
+          <td *ngIf="course.instructor; else emptyList">{{course.instructor?.name}} {{course.instructor?.surname}}</td>
+          <ng-template #emptyList>
+              <td><strong>Nie wybrano</strong></td>
+           </ng-template>
+          <td>
+            <button class="btn btn-danger" (click)="deleteCourseOnConfirm(course.id)">Usuń kurs</button>
+          </td>
+          <td>
+            <button class="btn btn-info" (click)="editCourseInstructorModal(course)">Ustaw instruktora</button>
+          </td>
         </tr>
       </table>
     </div>

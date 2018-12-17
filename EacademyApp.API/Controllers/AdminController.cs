@@ -29,6 +29,9 @@ namespace EacademyApp.API.Controllers
                 {
                     Id = student.Id,
                     Username = student.Username,
+                    Name = student.Name,
+                    Surname = student.Surname,
+                    IsInstructor = student.IsInstructor,
                     Roles = (from studentRole in student.StudentRoles
                                 join role in _context.Roles
                                 on studentRole.RoleId
@@ -47,7 +50,8 @@ namespace EacademyApp.API.Controllers
                 {
                     Id = course.Id,
                     Name = course.Name,
-                    Description = course.Description
+                    Description = course.Description,
+                    Instructor = course.Instructor
                 }).ToListAsync();
 
             return Ok(courseList);
@@ -66,6 +70,10 @@ namespace EacademyApp.API.Controllers
 
             foreach(var role in selectedRoles)
             {
+                if(role == "Instructor") {
+                    user.IsInstructor = true;
+                }
+
                 var r = _context.Roles.FirstOrDefault(x => x.Name == role);
 
                 var check = _context.StudentRoles.FirstOrDefault(x => x.StudentId == user.Id && x.RoleId == r.Id);

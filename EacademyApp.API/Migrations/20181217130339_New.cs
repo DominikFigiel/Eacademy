@@ -33,7 +33,8 @@ namespace EacademyApp.API.Migrations
                     Surname = table.Column<string>(nullable: true),
                     PhotoURL = table.Column<string>(nullable: true),
                     Created = table.Column<DateTime>(nullable: false),
-                    EnrollmentDate = table.Column<DateTime>(nullable: false)
+                    EnrollmentDate = table.Column<DateTime>(nullable: false),
+                    IsInstructor = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {

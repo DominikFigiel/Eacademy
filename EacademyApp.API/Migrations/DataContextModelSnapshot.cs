@@ -88,6 +88,8 @@ namespace EacademyApp.API.Migrations
 
                     b.Property<DateTime>("EnrollmentDate");
 
+                    b.Property<bool>("IsInstructor");
+
                     b.Property<string>("Name");
 
                     b.Property<byte[]>("PasswordHash");

@@ -16,5 +16,6 @@ namespace EacademyApp.API.Models
         public DateTime EnrollmentDate { get; set; }
         public ICollection<CourseStudent> CourseStudents { get; set; }
         public ICollection<StudentRole> StudentRoles { get; set; }
+        public bool IsInstructor { get; set; }
     }
 }
