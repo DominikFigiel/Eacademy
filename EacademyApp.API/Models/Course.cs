@@ -9,5 +9,6 @@ namespace EacademyApp.API.Models
         public string Description { get; set; }
         public ICollection<CourseStudent> CourseStudents { get; set; }
         public ICollection<Module> Modules { get; set; }
+        public Student Instructor { get; set; }
     }
 }

@@ -41,7 +41,7 @@ namespace EacademyApp.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCourse(int id)
         {
-            var course = await _context.Courses.Include(c => c.Modules).FirstOrDefaultAsync(x => x.Id == id);
+            var course = await _context.Courses.Include(c => c.Modules).Include(c => c.Instructor).FirstOrDefaultAsync(x => x.Id == id);
 
             return Ok(course);
         }
@@ -131,6 +131,22 @@ namespace EacademyApp.API.Controllers
             await _context.SaveChangesAsync();
 
             return Ok(await _context.Courses.ToListAsync());
+        }
+
+        [HttpPut("{id}/setInstructor/{instructorId}")]
+        public async Task<IActionResult> EditCategory(int id, int instructorId)
+        {
+            var course = _context.Courses.FirstOrDefault(c => c.Id == id);
+
+            var instructor = _context.Students.FirstOrDefault(s => s.Id == instructorId);
+
+            course.Instructor = instructor;
+
+            await _context.SaveChangesAsync();
+            
+            return Ok("Zmiany zostaly zapisane");
+
+            throw new System.Exception($"Updating course {id} failed on save");
         }
     }
 }
