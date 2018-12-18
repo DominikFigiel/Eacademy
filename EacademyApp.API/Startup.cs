@@ -73,6 +73,7 @@ namespace EacademyApp.API
             // seeder.SeedData();
             //
 
+            app.UseStaticFiles();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();
             app.UseMvc();

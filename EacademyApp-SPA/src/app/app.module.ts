@@ -39,6 +39,7 @@ import { InstructorCourseManagementComponent } from './admin/instructor-course-m
 // tslint:disable-next-line:max-line-length
 import { InstructorCourseManagementListComponent } from './admin/instructor-course-management-list/instructor-course-management-list.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { FileUploaderService } from './_services/fileUploader.service';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -96,7 +97,8 @@ export function tokenGetter() {
       StudentEditResolver,
       PreventUnsavedChanges,
       CourseService,
-      AdminService
+      AdminService,
+      FileUploaderService
    ],
    entryComponents: [
       RolesModalComponent,

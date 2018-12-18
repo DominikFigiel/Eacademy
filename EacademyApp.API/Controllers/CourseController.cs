@@ -1,10 +1,14 @@
 using System;
+using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using EacademyApp.API.Data;
 using EacademyApp.API.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,11 +21,13 @@ namespace EacademyApp.API.Controllers
     {
         private readonly DataContext _context;
         public IEacademyRepository _repo { get; }
-        public CoursesController(DataContext context, IEacademyRepository repo)
+        private readonly IHostingEnvironment _host;
+        private readonly string[] ACCEPTED_FILE_TYPES = new[] {".zip"};
+        public CoursesController(DataContext context, IEacademyRepository repo, IHostingEnvironment host)
         {
             _context = context;
             _repo = repo;
-
+            _host = host;
         }
         // GET api/courses
         [HttpGet]
@@ -169,5 +175,39 @@ namespace EacademyApp.API.Controllers
             
             return Ok(course);
         }
+
+        [HttpPost("module/addFile/{moduleId}"), DisableRequestSizeLimit]
+        public IActionResult UploadFile(IFormFile filesData)
+        {   
+            try  
+            {  
+                foreach(var file in Request.Form.Files) {
+                    // var file = Request.Form.Files[0];  
+                    string folderName = "Uploads/Modules";  
+                    string webRootPath = _host.WebRootPath;  
+                    string newPath = Path.Combine(webRootPath, folderName);  
+                    if (!Directory.Exists(newPath))  
+                    {  
+                        Directory.CreateDirectory(newPath);  
+                    }  
+                    if (file.Length > 0)  
+                    {  
+                        string fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');  
+                        string fullPath = Path.Combine(newPath, fileName);  
+                        using (var stream = new FileStream(fullPath, FileMode.Create))  
+                        {  
+                            file.CopyTo(stream);  
+                        }  
+                    }  
+                }
+                return Ok(); 
+                
+            }  
+            catch (System.Exception ex)  
+            {  
+                return Ok("Upload Failed: " + ex.Message);  
+            }  
+        }
+
     }
 }

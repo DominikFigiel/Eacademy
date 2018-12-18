@@ -42,11 +42,26 @@
                   <span class="card-text mr-2">Załączniki: </span>
                 </div>
                 <div class="col-sm-12 text-center">
-                  <a class="btn btn-primary mr-3 mb-2" style="color:aliceblue">Przykładowy załącznik 1</a>
-                  <a class="btn btn-primary mr-3 mb-2" style="color:aliceblue">Przykładowy załącznik 2</a>
-                  <a class="btn btn-primary mr-3 mb-2" style="color:aliceblue">Przykładowy załącznik 3</a>
-                  <a class="btn btn-primary mr-3 mb-2" style="color:aliceblue">Przykładowy załącznik 4</a>
-                  <a class="btn btn-primary mr-3 mb-2" style="color:aliceblue">Przykładowy załącznik 5</a>
+                  
+                  <a class="btn btn-primary mr-3 mb-2" style="color:aliceblue" 
+                  href="{{baseStaticFilesUrl}}uploads/modules/module_{{module?.id}}.zip" download>
+                    Pobierz załącznik
+                  </a>
+
+                  <form>
+                      <h2 class="text-center text-primary">Upload pliku</h2>
+                  
+                      <hr>
+                  
+                      <div class="form-group">
+                        <input #file type="file" class="form-control" required accept=".zip" />
+                      </div>
+                  
+                      <div class="form-group text-center">
+                        <button class="btn btn-success mr-2" type="button" (click)="upload(file.files, module.id)">Wyślij</button>
+                      </div>
+                    </form>
+
                 </div>
               </div>
             </div>

@@ -6,6 +6,8 @@ import { CourseService } from 'src/app/_services/course.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgForm, FormBuilder } from '@angular/forms';
 import { BsDatepickerConfig, BsLocaleService, defineLocale, plLocale } from 'ngx-bootstrap';
+import { FileUploaderService } from './../../_services/fileUploader.service';
+import { environment } from 'src/environments/environment';
 defineLocale('pl', plLocale);
 
 @Component({
@@ -18,9 +20,10 @@ export class InstructorCourseManagementComponent implements OnInit {
   @ViewChild('addModuleForm') addModuleForm: NgForm;
   model: any = {};
   bsConfig: Partial<BsDatepickerConfig>;
+  baseStaticFilesUrl = 'http://localhost:5000/';
 
-  constructor(private courseService: CourseService, private authService: AuthService,
-    private route: ActivatedRoute, private alertify: AlertifyService, private bsLocale: BsLocaleService) { }
+  constructor(private courseService: CourseService, private authService: AuthService, private route: ActivatedRoute,
+    private alertify: AlertifyService, private bsLocale: BsLocaleService, private fileUploader: FileUploaderService) { }
 
   ngOnInit() {
     this.bsConfig = {
@@ -28,6 +31,18 @@ export class InstructorCourseManagementComponent implements OnInit {
     };
     this.bsLocale.use('pl');
     this.getCourse();
+  }
+
+  upload(files: any, moduleId: number) {
+    if (files.length > 0) {
+      this.fileUploader.upload(files, moduleId).subscribe(() => {
+        this.alertify.success('Plik został wysłany.');
+      }, error => {
+        this.alertify.error('Nie udało się wysłać pliku.');
+      });
+    } else {
+      this.alertify.error('Nie wybrałeś pliku.');
+    }
   }
 
   addModule() {
