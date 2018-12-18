@@ -1,0 +1,19 @@
+<div class="container mt-3">
+  <h1>Kursy</h1>
+  <p class="lead">Twoje kursy:</p>
+
+  <div class="row">
+    <div *ngFor="let course of courses" class="col-sm-6 mt-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{course.name}}</h5>
+          <p class="card-text">{{course.description}}</p>
+          <a routerLink="/admin/course/{{course.id}}"><button class="btn btn-info btn-block" >Zarządzaj kursem</button></a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6" *ngIf="!(courses?.length > 0)">
+      <p>Ten instruktor nie prowadzi aktualnie żadnych kursów.</p>
+    </div>
+  </div>
+</div> 
