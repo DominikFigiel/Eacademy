@@ -79,6 +79,8 @@ namespace EacademyApp.API.Data
             Student instructor = new Student
             {
                 Username = "instruktor",
+                Name = "Przykładowy",
+                Surname = "Instruktor",
                 PhotoURL = "https://randomuser.me/api/portraits/men/31.jpg"
             };    
             byte[] pHash, pSalt;
@@ -97,6 +99,7 @@ namespace EacademyApp.API.Data
             /* Adding course instructor */
 
             course.Instructor = instructor;
+            instructor.IsInstructor = true;
 
             /* */
 

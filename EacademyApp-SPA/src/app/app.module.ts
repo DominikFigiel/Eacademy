@@ -33,6 +33,7 @@ import { AdminService } from './_services/admin.service';
 import { RolesModalComponent } from './admin/roles-modal/roles-modal.component';
 import { UserManagementComponent } from './admin/user-management/user-management.component';
 import { CourseManagementComponent } from './admin/course-management/course-management.component';
+import { CourseInstructorModalComponent } from './admin/course-instructor-modal/course-instructor-modal.component';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -57,7 +58,8 @@ export function tokenGetter() {
       HasRoleDirective,
       UserManagementComponent,
       RolesModalComponent,
-      CourseManagementComponent
+      CourseManagementComponent,
+      CourseInstructorModalComponent
    ],
    imports: [
       BrowserModule,
@@ -88,7 +90,8 @@ export function tokenGetter() {
       AdminService
    ],
    entryComponents: [
-      RolesModalComponent
+      RolesModalComponent,
+      CourseInstructorModalComponent
    ],
    bootstrap: [
       AppComponent

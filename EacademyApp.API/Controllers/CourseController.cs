@@ -29,7 +29,7 @@ namespace EacademyApp.API.Controllers
         {
             // var courses = await _context.Courses.ToListAsync();
 
-            var courses = await _context.Courses.Include(c => c.CourseStudents).ThenInclude(cs => cs.Student).ToListAsync();
+            var courses = await _context.Courses.Include(c => c.CourseStudents).ThenInclude(cs => cs.Student).Include(c => c.Instructor).ToListAsync();
 
             //var courses = await _context.CourseStudents.Include(cs => cs.Student).ToListAsync();
 
@@ -119,7 +119,7 @@ namespace EacademyApp.API.Controllers
             await _context.Courses.AddAsync(course);
             await _context.SaveChangesAsync();
 
-            return Ok(await _context.Courses.ToListAsync());
+            return Ok(await _context.Courses.Include(c => c.Instructor).ToListAsync());
         }
 
         [HttpDelete("{courseId}/deleteCourse")]
@@ -130,7 +130,7 @@ namespace EacademyApp.API.Controllers
 
             await _context.SaveChangesAsync();
 
-            return Ok(await _context.Courses.ToListAsync());
+            return Ok(await _context.Courses.Include(c => c.Instructor).ToListAsync());
         }
 
         [HttpPut("{id}/setInstructor/{instructorId}")]
@@ -142,11 +142,11 @@ namespace EacademyApp.API.Controllers
 
             course.Instructor = instructor;
 
+            instructor.IsInstructor = true;
+
             await _context.SaveChangesAsync();
             
-            return Ok("Zmiany zostaly zapisane");
-
-            throw new System.Exception($"Updating course {id} failed on save");
+            return Ok(course);
         }
     }
 }

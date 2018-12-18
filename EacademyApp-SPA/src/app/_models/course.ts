@@ -8,4 +8,5 @@ export interface Course {
     description: string;
     courseStudents?: CourseStudents[];
     modules?: Module[];
+    instructor?: Student;
 }
