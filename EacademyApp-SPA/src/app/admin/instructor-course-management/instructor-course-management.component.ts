@@ -1,13 +1,12 @@
-import { AlertifyService } from './../../_services/alertify.service';
-import { AuthService } from './../../_services/auth.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Course } from 'src/app/_models/course';
 import { CourseService } from 'src/app/_services/course.service';
 import { ActivatedRoute } from '@angular/router';
-import { NgForm, FormBuilder } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { BsDatepickerConfig, BsLocaleService, defineLocale, plLocale } from 'ngx-bootstrap';
-import { FileUploaderService } from './../../_services/fileUploader.service';
-import { environment } from 'src/environments/environment';
+import { AuthService } from 'src/app/_services/auth.service';
+import { FileUploaderService } from 'src/app/_services/fileUploader.service';
+import { AlertifyService } from 'src/app/_services/alertify.service';
 defineLocale('pl', plLocale);
 
 @Component({
