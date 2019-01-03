@@ -1,0 +1,76 @@
+<div class="container mt-5">
+    <div>
+      <p class="lead">Dodaj nowy moduł</p>
+      <hr>
+  
+        <form #addModuleForm="ngForm" id="addModuleForm" (ngSubmit)="addModule()">
+          <div class="form-group">
+            <label for="moduleName">Nazwa modułu</label>
+            <input type="text" class="form-control" id="moduleName" name="moduleName" [(ngModel)]="model.name" placeholder="Wpisz nazwę modułu" required>
+          </div>
+          <div class="form-group">
+            <label for="moduleDescription">Opis modułu</label>
+            <input type="text" class="form-control" id="moduleDescription" name="moduleDescription" [(ngModel)]="model.description" placeholder="Wpisz opis modułu" required>
+          </div>
+          <div class="form-group">
+              <label for="moduleDate">Data zajęć</label>
+              <input id="moduleDate" name="moduleDate" [(ngModel)]="model.date"
+              type="text" placeholder="Data zajęć" class="form-control" bsDatepicker>
+          </div>
+          <button type="submit" [disabled]="!addModuleForm.valid" class="btn btn-primary btn-block">Dodaj moduł</button>
+          <small *ngIf="!addModuleForm.valid" class="form-text text-muted">Wypełnij wszystkie pola, aby móc dodać moduł.</small>
+        </form>
+  
+    </div>
+    <hr>
+    <div>
+      <h1>{{course?.name}}</h1>
+      <p class="lead">{{course?.description}}</p>
+  
+      <div class="row">
+        <div *ngFor="let module of course?.modules" class="col-sm-12 mb-4">
+            <div class="card">
+              <div class="card-header">
+                  {{module?.date| date: 'dd/MM/yyyy'}}
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">{{module?.name}}</h5>
+                <p class="card-text">{{module?.description}}</p>
+              </div>
+              <div class="card-footer">
+                <div *ngIf="module?.hasFileAttachment">
+                  <div class="col-sm-12 text-center mb-2">
+                    <span class="card-text mr-2">Załączniki: </span>
+                  </div>
+                  <div class="col-sm-12 text-center">
+                    <a class="btn btn-primary mr-3 mb-2" style="color:aliceblue" 
+                    href="{{baseStaticFilesUrl}}uploads/modules/module_{{module?.id}}.zip" download>
+                      Pobierz załącznik
+                    </a>
+                  </div>
+                </div>
+              <hr/>
+                <div class="col-sm-12 text-center">
+
+                  <form>
+                      <h2 class="text-center text-primary">Dodaj plik</h2>
+                  
+                      <hr>
+                  
+                      <div class="form-group">
+                        <input #file type="file" class="form-control" required accept=".zip" />
+                      </div>
+                  
+                      <div class="form-group text-center">
+                        <button class="btn btn-success mr-2" type="button" (click)="upload(file.files, module.id)">Wyślij</button>
+                      </div>
+                    </form>
+
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+  
+    </div>
+  </div>

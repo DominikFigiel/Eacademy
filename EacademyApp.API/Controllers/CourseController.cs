@@ -1,10 +1,14 @@
 using System;
+using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using EacademyApp.API.Data;
 using EacademyApp.API.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,11 +21,13 @@ namespace EacademyApp.API.Controllers
     {
         private readonly DataContext _context;
         public IEacademyRepository _repo { get; }
-        public CoursesController(DataContext context, IEacademyRepository repo)
+        private readonly IHostingEnvironment _host;
+        private readonly string[] ACCEPTED_FILE_TYPES = new[] {".zip"};
+        public CoursesController(DataContext context, IEacademyRepository repo, IHostingEnvironment host)
         {
             _context = context;
             _repo = repo;
-
+            _host = host;
         }
         // GET api/courses
         [HttpGet]
@@ -44,6 +50,15 @@ namespace EacademyApp.API.Controllers
             var course = await _context.Courses.Include(c => c.Modules).Include(c => c.Instructor).FirstOrDefaultAsync(x => x.Id == id);
 
             return Ok(course);
+        }
+
+        [HttpGet("coursesByInstructor/{id}")]
+        public async Task<IActionResult> GetCoursesByInstructor(int id)
+        {
+            var courses = await _context.Courses.Include(c => c.CourseStudents).ThenInclude(cs => cs.Student).Include(c => c.Instructor)
+                .Where(c => c.Instructor.Id == id).ToListAsync();
+
+            return Ok(courses);
         }
 
         // POST api/courses
@@ -133,6 +148,18 @@ namespace EacademyApp.API.Controllers
             return Ok(await _context.Courses.Include(c => c.Instructor).ToListAsync());
         }
 
+        [HttpPost("{courseId}/addModule")]
+        public async Task<IActionResult> AddModule(int courseId, Module module)
+        {
+           var course = await _context.Courses.Include(c => c.Modules).Include(c => c.Instructor).FirstOrDefaultAsync(x => x.Id == courseId);
+
+           course.Modules.Add(module);
+           
+           await _context.SaveChangesAsync();
+           
+           return Ok(course);
+        }
+
         [HttpPut("{id}/setInstructor/{instructorId}")]
         public async Task<IActionResult> EditCategory(int id, int instructorId)
         {
@@ -148,5 +175,46 @@ namespace EacademyApp.API.Controllers
             
             return Ok(course);
         }
+
+        [HttpPost("module/addFile/{moduleId}"), DisableRequestSizeLimit]
+        public IActionResult UploadFile(IFormFile filesData, int moduleId)
+        {   
+            try  
+            {  
+                foreach(var file in Request.Form.Files) {
+                    // var file = Request.Form.Files[0];  
+                    string folderName = "Uploads/Modules";  
+                    string webRootPath = _host.WebRootPath;  
+                    string newPath = Path.Combine(webRootPath, folderName);  
+                    if (!Directory.Exists(newPath))  
+                    {  
+                        Directory.CreateDirectory(newPath);  
+                    }  
+                    if (file.Length > 0)  
+                    {  
+                        string fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');  
+                        string fullPath = Path.Combine(newPath, fileName);  
+                        using (var stream = new FileStream(fullPath, FileMode.Create))  
+                        {  
+                            file.CopyTo(stream);  
+                        }  
+                    }  
+                }
+                /* Set HasFileAttachment to true */
+                var module = _context.Modules.FirstOrDefault(m => m.Id == moduleId);
+
+                module.HasFileAttachment = true;
+
+                _context.SaveChanges();
+                /* */
+                return Ok(); 
+                
+            }  
+            catch (System.Exception ex)  
+            {  
+                return Ok("Upload Failed: " + ex.Message);  
+            }  
+        }
+
     }
 }

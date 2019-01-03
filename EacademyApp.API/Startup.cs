@@ -70,9 +70,10 @@ namespace EacademyApp.API
             // app.UseHttpsRedirection();
 
             // Seed users and data
-            //seeder.SeedData();
+            // seeder.SeedData();
             //
 
+            app.UseStaticFiles();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();
             app.UseMvc();

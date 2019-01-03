@@ -23,13 +23,13 @@ namespace EacademyApp.API.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("Name");
+                    b.Property<int?>("InstructorId");
 
-                    b.Property<int?>("TeacherId");
+                    b.Property<string>("Name");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TeacherId");
+                    b.HasIndex("InstructorId");
 
                     b.ToTable("Courses");
                 });
@@ -57,6 +57,8 @@ namespace EacademyApp.API.Migrations
                     b.Property<DateTime>("Date");
 
                     b.Property<string>("Description");
+
+                    b.Property<bool>("HasFileAttachment");
 
                     b.Property<string>("Name");
 
@@ -87,6 +89,8 @@ namespace EacademyApp.API.Migrations
                     b.Property<DateTime>("Created");
 
                     b.Property<DateTime>("EnrollmentDate");
+
+                    b.Property<bool>("IsInstructor");
 
                     b.Property<string>("Name");
 
@@ -150,9 +154,9 @@ namespace EacademyApp.API.Migrations
 
             modelBuilder.Entity("EacademyApp.API.Models.Course", b =>
                 {
-                    b.HasOne("EacademyApp.API.Models.Teacher")
-                        .WithMany("Courses")
-                        .HasForeignKey("TeacherId");
+                    b.HasOne("EacademyApp.API.Models.Student", "Instructor")
+                        .WithMany()
+                        .HasForeignKey("InstructorId");
                 });
 
             modelBuilder.Entity("EacademyApp.API.Models.CourseStudent", b =>

@@ -5,5 +5,6 @@ export interface Module {
     name: string;
     description: string;
     date: string;
+    hasFileAttachment: boolean;
     course: Course;
 }

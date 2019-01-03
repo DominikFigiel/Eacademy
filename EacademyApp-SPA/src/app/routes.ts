@@ -11,6 +11,7 @@ import { StudentEditComponent } from './students/student-edit/student-edit.compo
 import { StudentEditResolver } from './_resolvers/member-edit.resolver';
 import { UserCourseListComponent } from './students/user-course-list/user-course-list.component';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { InstructorCourseManagementComponent } from './admin/instructor-course-management/instructor-course-management.component';
 
 export const appRoutes: Routes = [
     { path: '', component: HomeComponent},
@@ -27,7 +28,8 @@ export const appRoutes: Routes = [
             { path: 'student/edit', component: StudentEditComponent,
                 resolve: {student: StudentEditResolver}, canDeactivate: [PreventUnsavedChanges]},
             { path: 'student/courses', component: UserCourseListComponent},
-            { path: 'admin', component: AdminPanelComponent, data: {roles: ['Admin', 'Instructor']}}
+            { path: 'admin', component: AdminPanelComponent, data: {roles: ['Admin', 'Instructor']}},
+            { path: 'admin/course/:id', component: InstructorCourseManagementComponent, data: {roles: ['Admin', 'Instructor']}}
         ]
     },
     { path: '**', redirectTo: '', pathMatch: 'full'}

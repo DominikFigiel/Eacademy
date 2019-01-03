@@ -7,6 +7,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Course } from '../_models/course';
+import { Student } from '../_models/student';
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +48,12 @@ export class CourseService {
     );
   }
 
+  addModule(courseId: number, model: any) {
+    return this.http.post(
+      this.baseUrl + 'courses/' + courseId + '/addModule/', model
+    );
+  }
+
   addCourse(model: any) {
     return this.http.post(
       this.baseUrl + 'courses/' + 'addCourse', model
@@ -55,6 +62,10 @@ export class CourseService {
 
   getCoursesForList() {
     return this.http.get(this.baseUrl + 'admin/coursesForList');
+  }
+
+  getCoursesByInstructor(instructorId: number) {
+    return this.http.get(this.baseUrl + 'courses/coursesByInstructor/' + instructorId);
   }
 
   deleteCourse(courseId: number) {

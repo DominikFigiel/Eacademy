@@ -34,6 +34,12 @@ import { RolesModalComponent } from './admin/roles-modal/roles-modal.component';
 import { UserManagementComponent } from './admin/user-management/user-management.component';
 import { CourseManagementComponent } from './admin/course-management/course-management.component';
 import { CourseInstructorModalComponent } from './admin/course-instructor-modal/course-instructor-modal.component';
+import { InstructorCourseListComponent } from './students/instructor-course-list/instructor-course-list.component';
+import { InstructorCourseManagementComponent } from './admin/instructor-course-management/instructor-course-management.component';
+// tslint:disable-next-line:max-line-length
+import { InstructorCourseManagementListComponent } from './admin/instructor-course-management-list/instructor-course-management-list.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { FileUploaderService } from './_services/fileUploader.service';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -59,7 +65,10 @@ export function tokenGetter() {
       UserManagementComponent,
       RolesModalComponent,
       CourseManagementComponent,
-      CourseInstructorModalComponent
+      CourseInstructorModalComponent,
+      InstructorCourseListComponent,
+      InstructorCourseManagementComponent,
+      InstructorCourseManagementListComponent
    ],
    imports: [
       BrowserModule,
@@ -77,7 +86,8 @@ export function tokenGetter() {
             blacklistedRoutes: ['localhost:5000/api/auth']
           }
       }),
-      PaginationModule.forRoot()
+      PaginationModule.forRoot(),
+      BsDatepickerModule.forRoot()
    ],
    providers: [
       AuthService,
@@ -87,7 +97,8 @@ export function tokenGetter() {
       StudentEditResolver,
       PreventUnsavedChanges,
       CourseService,
-      AdminService
+      AdminService,
+      FileUploaderService
    ],
    entryComponents: [
       RolesModalComponent,

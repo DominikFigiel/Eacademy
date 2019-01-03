@@ -11,7 +11,7 @@ import { AlertifyService } from 'src/app/_services/alertify.service';
 })
 export class CourseComponent implements OnInit {
   course: Course;
-
+  baseStaticFilesUrl = 'http://localhost:5000/';
   constructor(private courseService: CourseService, private route: ActivatedRoute,
       private alertify: AlertifyService) { }
 

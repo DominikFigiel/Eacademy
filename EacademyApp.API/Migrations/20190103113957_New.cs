@@ -33,7 +33,8 @@ namespace EacademyApp.API.Migrations
                     Surname = table.Column<string>(nullable: true),
                     PhotoURL = table.Column<string>(nullable: true),
                     Created = table.Column<DateTime>(nullable: false),
-                    EnrollmentDate = table.Column<DateTime>(nullable: false)
+                    EnrollmentDate = table.Column<DateTime>(nullable: false),
+                    IsInstructor = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -62,6 +63,27 @@ namespace EacademyApp.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Courses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    InstructorId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Courses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Courses_Students_InstructorId",
+                        column: x => x.InstructorId,
+                        principalTable: "Students",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "StudentRoles",
                 columns: table => new
                 {
@@ -83,27 +105,6 @@ namespace EacademyApp.API.Migrations
                         principalTable: "Students",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Courses",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    TeacherId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Courses", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Courses_Teachers_TeacherId",
-                        column: x => x.TeacherId,
-                        principalTable: "Teachers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -139,6 +140,7 @@ namespace EacademyApp.API.Migrations
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Date = table.Column<DateTime>(nullable: false),
+                    HasFileAttachment = table.Column<bool>(nullable: false),
                     CourseId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -153,9 +155,9 @@ namespace EacademyApp.API.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Courses_TeacherId",
+                name: "IX_Courses_InstructorId",
                 table: "Courses",
-                column: "TeacherId");
+                column: "InstructorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CourseStudents_StudentId",
@@ -185,6 +187,9 @@ namespace EacademyApp.API.Migrations
                 name: "StudentRoles");
 
             migrationBuilder.DropTable(
+                name: "Teachers");
+
+            migrationBuilder.DropTable(
                 name: "Courses");
 
             migrationBuilder.DropTable(
@@ -192,9 +197,6 @@ namespace EacademyApp.API.Migrations
 
             migrationBuilder.DropTable(
                 name: "Students");
-
-            migrationBuilder.DropTable(
-                name: "Teachers");
         }
     }
 }
