@@ -141,6 +141,8 @@ namespace EacademyApp.API.Migrations
                     Description = table.Column<string>(nullable: true),
                     Date = table.Column<DateTime>(nullable: false),
                     HasFileAttachment = table.Column<bool>(nullable: false),
+                    AssignmentName = table.Column<string>(nullable: true),
+                    HasAssignment = table.Column<bool>(nullable: false),
                     CourseId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -153,6 +155,43 @@ namespace EacademyApp.API.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Assignments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    StudentId = table.Column<int>(nullable: false),
+                    ModuleId = table.Column<int>(nullable: false),
+                    Grade = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Assignments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Assignments_Modules_ModuleId",
+                        column: x => x.ModuleId,
+                        principalTable: "Modules",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Assignments_Students_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "Students",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Assignments_ModuleId",
+                table: "Assignments",
+                column: "ModuleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Assignments_StudentId",
+                table: "Assignments",
+                column: "StudentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Courses_InstructorId",
@@ -178,10 +217,10 @@ namespace EacademyApp.API.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CourseStudents");
+                name: "Assignments");
 
             migrationBuilder.DropTable(
-                name: "Modules");
+                name: "CourseStudents");
 
             migrationBuilder.DropTable(
                 name: "StudentRoles");
@@ -190,10 +229,13 @@ namespace EacademyApp.API.Migrations
                 name: "Teachers");
 
             migrationBuilder.DropTable(
-                name: "Courses");
+                name: "Modules");
 
             migrationBuilder.DropTable(
                 name: "Roles");
+
+            migrationBuilder.DropTable(
+                name: "Courses");
 
             migrationBuilder.DropTable(
                 name: "Students");

@@ -7,6 +7,7 @@ import { BsDatepickerConfig, BsLocaleService, defineLocale, plLocale } from 'ngx
 import { AuthService } from 'src/app/_services/auth.service';
 import { FileUploaderService } from 'src/app/_services/fileUploader.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
+import { Module } from 'src/app/_models/module';
 defineLocale('pl', plLocale);
 
 @Component({
@@ -57,6 +58,19 @@ export class InstructorCourseManagementComponent implements OnInit {
       this.alertify.error('Wypełnij wszystkie pola.');
     }
   }
+
+  addModuleAssignment(mod: Module, name: string) {
+    mod.assignmentName = name;
+    if (name) {
+      this.courseService.addModuleAssignment(mod).subscribe(() => {
+      }, error => {
+        this.alertify.error(error);
+      });
+    } else {
+      this.alertify.error('Nie wpisałeś nazwy zadania.');
+    }
+  }
+
 
   getCourse() {
     this.courseService.getCourse(+this.route.snapshot.params['id']).subscribe((course: Course) => {

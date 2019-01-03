@@ -16,6 +16,26 @@ namespace EacademyApp.API.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.2-rtm-30932");
 
+            modelBuilder.Entity("EacademyApp.API.Models.Assignment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Grade");
+
+                    b.Property<int>("ModuleId");
+
+                    b.Property<int>("StudentId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ModuleId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("Assignments");
+                });
+
             modelBuilder.Entity("EacademyApp.API.Models.Course", b =>
                 {
                     b.Property<int>("Id")
@@ -52,11 +72,15 @@ namespace EacademyApp.API.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("AssignmentName");
+
                     b.Property<int>("CourseId");
 
                     b.Property<DateTime>("Date");
 
                     b.Property<string>("Description");
+
+                    b.Property<bool>("HasAssignment");
 
                     b.Property<bool>("HasFileAttachment");
 
@@ -150,6 +174,19 @@ namespace EacademyApp.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Teachers");
+                });
+
+            modelBuilder.Entity("EacademyApp.API.Models.Assignment", b =>
+                {
+                    b.HasOne("EacademyApp.API.Models.Module", "Module")
+                        .WithMany()
+                        .HasForeignKey("ModuleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("EacademyApp.API.Models.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("EacademyApp.API.Models.Course", b =>

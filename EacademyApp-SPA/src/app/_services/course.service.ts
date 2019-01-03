@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Course } from '../_models/course';
 import { Student } from '../_models/student';
+import { Module } from '../_models/module';
 
 @Injectable({
   providedIn: 'root'
@@ -52,6 +53,14 @@ export class CourseService {
     return this.http.post(
       this.baseUrl + 'courses/' + courseId + '/addModule/', model
     );
+  }
+
+  getModule(id: number) {
+    return this.http.get(this.baseUrl + 'courses/module' + id);
+  }
+
+  addModuleAssignment(mod: any) {
+    return this.http.put(this.baseUrl + 'courses/module/addAssignment/' + mod.id, mod);
   }
 
   addCourse(model: any) {

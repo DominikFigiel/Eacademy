@@ -6,5 +6,7 @@ export interface Module {
     description: string;
     date: string;
     hasFileAttachment: boolean;
+    assignmentName: string;
+    hasAssignment: boolean;
     course: Course;
 }
