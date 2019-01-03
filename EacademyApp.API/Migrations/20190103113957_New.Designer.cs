@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EacademyApp.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20181217130339_New")]
+    [Migration("20190103113957_New")]
     partial class New
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,6 +59,8 @@ namespace EacademyApp.API.Migrations
                     b.Property<DateTime>("Date");
 
                     b.Property<string>("Description");
+
+                    b.Property<bool>("HasFileAttachment");
 
                     b.Property<string>("Name");
 

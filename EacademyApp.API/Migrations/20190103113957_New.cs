@@ -140,6 +140,7 @@ namespace EacademyApp.API.Migrations
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Date = table.Column<DateTime>(nullable: false),
+                    HasFileAttachment = table.Column<bool>(nullable: false),
                     CourseId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

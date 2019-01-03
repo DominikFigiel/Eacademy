@@ -38,18 +38,22 @@
                 <p class="card-text">{{module?.description}}</p>
               </div>
               <div class="card-footer">
-                <div class="col-sm-12 text-center mb-2">
-                  <span class="card-text mr-2">Załączniki: </span>
+                <div *ngIf="module?.hasFileAttachment">
+                  <div class="col-sm-12 text-center mb-2">
+                    <span class="card-text mr-2">Załączniki: </span>
+                  </div>
+                  <div class="col-sm-12 text-center">
+                    <a class="btn btn-primary mr-3 mb-2" style="color:aliceblue" 
+                    href="{{baseStaticFilesUrl}}uploads/modules/module_{{module?.id}}.zip" download>
+                      Pobierz załącznik
+                    </a>
+                  </div>
                 </div>
+              <hr/>
                 <div class="col-sm-12 text-center">
-                  
-                  <a class="btn btn-primary mr-3 mb-2" style="color:aliceblue" 
-                  href="{{baseStaticFilesUrl}}uploads/modules/module_{{module?.id}}.zip" download>
-                    Pobierz załącznik
-                  </a>
 
                   <form>
-                      <h2 class="text-center text-primary">Upload pliku</h2>
+                      <h2 class="text-center text-primary">Dodaj plik</h2>
                   
                       <hr>
                   

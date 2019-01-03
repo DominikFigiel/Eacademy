@@ -82,7 +82,7 @@ namespace EacademyApp.API.Controllers
                 {
                     var sr = new StudentRole { Student = user, Role = r };
                     _context.StudentRoles.AddAsync(sr).Wait();
-                    _context.SaveChangesAsync().Wait();
+                    await _context.SaveChangesAsync();
                     
 
                     // return Ok(selectedRoles);

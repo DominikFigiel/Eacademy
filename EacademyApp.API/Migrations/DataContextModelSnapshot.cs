@@ -58,6 +58,8 @@ namespace EacademyApp.API.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<bool>("HasFileAttachment");
+
                     b.Property<string>("Name");
 
                     b.HasKey("Id");

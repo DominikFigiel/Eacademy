@@ -177,7 +177,7 @@ namespace EacademyApp.API.Controllers
         }
 
         [HttpPost("module/addFile/{moduleId}"), DisableRequestSizeLimit]
-        public IActionResult UploadFile(IFormFile filesData)
+        public IActionResult UploadFile(IFormFile filesData, int moduleId)
         {   
             try  
             {  
@@ -200,6 +200,13 @@ namespace EacademyApp.API.Controllers
                         }  
                     }  
                 }
+                /* Set HasFileAttachment to true */
+                var module = _context.Modules.FirstOrDefault(m => m.Id == moduleId);
+
+                module.HasFileAttachment = true;
+
+                _context.SaveChanges();
+                /* */
                 return Ok(); 
                 
             }  
