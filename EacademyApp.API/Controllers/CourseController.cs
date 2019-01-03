@@ -241,6 +241,22 @@ namespace EacademyApp.API.Controllers
             return Ok(module); 
         }
 
+        [HttpGet("module/getAssignments/{studentId}")]
+        public async Task<IActionResult> GetAssignmentsByStudent(int studentId)
+        {
+            var assignments = await _context.Assignments.Where(a => a.StudentId == studentId).ToListAsync();
+
+            return Ok(assignments);
+        }
+
+        [HttpGet("module/getAssignment/{studentId}/{moduleId}")]
+        public async Task<IActionResult> GetAssignmentByStudent(int studentId, int moduleId)
+        {
+            var assignment = await _context.Assignments.Where(a => a.StudentId == studentId && a.ModuleId == moduleId).FirstOrDefaultAsync();
+
+            return Ok(assignment);
+        }
+
         [HttpPost("module/sendAssignment/{moduleId}/{studentId}"), DisableRequestSizeLimit]
         public IActionResult UploadAssignmentFile(IFormFile filesData, int moduleId, int studentId)
         {   
@@ -265,20 +281,23 @@ namespace EacademyApp.API.Controllers
                         }  
                     }  
                 }
-                /* Add SentAttachements */
-                var module = _context.Modules.FirstOrDefault(m => m.Id == moduleId);
-                var student = _context.Students.FirstOrDefault(s => s.Id == studentId);
+                /* Add SentAttachements if it doesn't exist */
+                if (_context.Assignments.Where(x => x.ModuleId == moduleId && x.StudentId == studentId).ToList().Count() < 1) {
+                    var module = _context.Modules.FirstOrDefault(m => m.Id == moduleId);
+                    var student = _context.Students.FirstOrDefault(s => s.Id == studentId);
 
-                var assignment = new Assignment
-                { 
-                    Module = module, 
-                    Student = student,
-                    Grade = 0
-                };
+                    var assignment = new Assignment
+                    { 
+                        Module = module, 
+                        Student = student,
+                        Grade = 0
+                    };
 
-                _context.Assignments.Add(assignment);
+                    _context.Assignments.Add(assignment);
+                }
 
                 _context.SaveChanges();
+
                 /* */
                 return Ok(); 
                 
