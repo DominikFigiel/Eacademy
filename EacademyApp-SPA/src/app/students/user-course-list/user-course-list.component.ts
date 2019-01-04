@@ -24,7 +24,7 @@ export class UserCourseListComponent implements OnInit {
   previousPageText: string;
   nextPageText: string;
 
-  constructor(private http: HttpClientModule, private studentService: StudentService, private courseService: CourseService, 
+  constructor(private http: HttpClientModule, private studentService: StudentService, private courseService: CourseService,
     private authService: AuthService, private alertify: AlertifyService) { }
 
   ngOnInit() {

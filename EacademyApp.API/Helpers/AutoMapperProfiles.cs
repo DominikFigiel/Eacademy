@@ -13,6 +13,7 @@ namespace EacademyApp.API.Helpers
             CreateMap<CourseStudent, CourseStudentForDetailedDto>();
             CreateMap<StudentForUpdateDto, Student>();
             CreateMap<ModuleForUpdateDto, Module>();
+            CreateMap<AssignmentForUpdateDto, Assignment>();
         }
     }
 }

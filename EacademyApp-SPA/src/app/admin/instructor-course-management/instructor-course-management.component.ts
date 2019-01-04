@@ -61,6 +61,7 @@ export class InstructorCourseManagementComponent implements OnInit {
 
   addModuleAssignment(mod: Module, name: string) {
     mod.assignmentName = name;
+    mod.hasAssignment =  true;
     if (name) {
       this.courseService.addModuleAssignment(mod).subscribe(() => {
       }, error => {

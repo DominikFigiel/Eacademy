@@ -1,0 +1,36 @@
+<div class="container mt-3">
+  <h2>Moduł: {{module?.name}}</h2>
+  <p class="lead">Treść zadania: <span>{{module?.assignmentName}}</span></p>
+  <p class="lead">Nadesłane rozwiązania:</p>
+  <div class="row">
+    <table class="table">
+      <tr>
+        <th style="width: 25%">Student</th>
+        <th style="width: 25%">Rozwiązanie</th>
+        <th style="width: 25%">Ocena</th>
+        <th style="width: 25%">Opcje</th>
+      </tr>
+      <tr *ngFor="let assignment of assignments">
+        <td>{{assignment.student.name}} {{assignment.student.surname}}</td>
+        <td>
+          <a class="btn btn-primary mr-3 mb-2" style="color:aliceblue" 
+            href="{{baseStaticFilesUrl}}uploads/assignments/module_{{moduleId}}_student_{{assignment.student.id}}.zip" download>
+              Pobierz plik
+          </a>
+        </td>
+        <td *ngIf="assignment.grade">{{assignment.grade}}</td>
+        <td *ngIf="!assignment.grade">Brak oceny</td>
+        <td>
+          <form #editModuleForm="ngForm" id="editModuleForm" (ngSubmit)="setGrade(assignment, assignmentGrade.value)">
+            <div class="form-group">
+                <label for="grade">Ocena zadania:</label>
+                <input #assignmentGrade id="grade" class="form-control" name="grade" type="number" min=2 max=5 value=3>
+            </div>
+            <button type="submit" [disabled]="!editModuleForm.valid" class="btn btn-success form-control">Zmień ocenę</button>
+            <small *ngIf="!editModuleForm.valid" class="form-text text-muted">Wypełnij wszystkie pola, aby móc dodać moduł.</small>
+          </form>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

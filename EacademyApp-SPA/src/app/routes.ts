@@ -12,6 +12,8 @@ import { StudentEditResolver } from './_resolvers/member-edit.resolver';
 import { UserCourseListComponent } from './students/user-course-list/user-course-list.component';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { InstructorCourseManagementComponent } from './admin/instructor-course-management/instructor-course-management.component';
+// tslint:disable-next-line:max-line-length
+import { InstructorModuleGradesManagementComponent } from './admin/instructor-module-grades-management/instructor-module-grades-management.component';
 
 export const appRoutes: Routes = [
     { path: '', component: HomeComponent},
@@ -29,7 +31,9 @@ export const appRoutes: Routes = [
                 resolve: {student: StudentEditResolver}, canDeactivate: [PreventUnsavedChanges]},
             { path: 'student/courses', component: UserCourseListComponent},
             { path: 'admin', component: AdminPanelComponent, data: {roles: ['Admin', 'Instructor']}},
-            { path: 'admin/course/:id', component: InstructorCourseManagementComponent, data: {roles: ['Admin', 'Instructor']}}
+            { path: 'admin/course/:id', component: InstructorCourseManagementComponent, data: {roles: ['Admin', 'Instructor']}},
+            { path: 'admin/module/:moduleId/grades',
+                component: InstructorModuleGradesManagementComponent, data: {roles: ['Admin', 'Instructor']}}
         ]
     },
     { path: '**', redirectTo: '', pathMatch: 'full'}

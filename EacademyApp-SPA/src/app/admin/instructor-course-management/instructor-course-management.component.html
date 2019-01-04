@@ -52,10 +52,13 @@
                   </div>
                   <div class="col-sm-12 col-md-6" *ngIf="module?.hasAssignment">
                     <div class="col-sm-12 text-center mb-2">
-                      <span class="card-text mr-2">Zadanie: </span>
+                      <span class="card-text mr-2">{{module?.assignmentName}}</span>
                     </div>
                     <div class="col-sm-12 text-center">
-                        <strong>{{module?.assignmentName}}</strong>
+                        <a class="btn btn-primary mr-3 mb-2" style="color:aliceblue" 
+                        [routerLink]="['/admin/module', module.id,'grades']">
+                        Przejdź do oceniania zadań
+                      </a>
                     </div>
                   </div>
                 </div>

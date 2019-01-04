@@ -223,7 +223,7 @@ namespace EacademyApp.API.Controllers
         [HttpGet("module/{id}")]
         public async Task<IActionResult> GetModule(int id)
         {
-            var module = await _context.Modules.FirstOrDefaultAsync(x => x.Id == id);
+            var module = await _context.Modules.Include(m => m.Course).ThenInclude(c => c.Instructor).FirstOrDefaultAsync(x => x.Id == id);
 
             return Ok(module);
         }
@@ -239,6 +239,26 @@ namespace EacademyApp.API.Controllers
             _context.SaveChanges();
 
             return Ok(module); 
+        }
+
+        [HttpPut("module/setGrade/{moduleId}")]
+        public IActionResult setGradeOfAssignment(AssignmentForUpdateDto assignmentForUpdateDto)
+        {   
+            var assignment = _context.Assignments.FirstOrDefault(a => a.Id == assignmentForUpdateDto.Id);
+
+            _mapper.Map(assignmentForUpdateDto, assignment);
+
+            _context.SaveChanges();
+
+            return Ok(assignment); 
+        }
+
+        [HttpGet("module/getAssignmentsByModule/{moduleId}")]
+        public async Task<IActionResult> GetAssignmentsByModule(int moduleId)
+        {
+            var assignments = await _context.Assignments.Where(a => a.ModuleId == moduleId).Include(a => a.Student).Include(a => a.Module).ToListAsync();
+
+            return Ok(assignments);
         }
 
         [HttpGet("module/getAssignments/{studentId}")]
