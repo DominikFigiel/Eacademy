@@ -228,6 +228,22 @@ namespace EacademyApp.API.Controllers
             return Ok(module);
         }
 
+        [HttpGet("module/getAssignments/{studentId}")]
+        public async Task<IActionResult> GetAssignmentsByStudent(int studentId)
+        {
+            var assignments = await _context.Assignments.Where(a => a.StudentId == studentId).ToListAsync();
+
+            return Ok(assignments);
+        }
+
+        [HttpGet("module/getAssignment/{studentId}/{moduleId}")]
+        public async Task<IActionResult> GetAssignmentByStudent(int studentId, int moduleId)
+        {
+            var assignment = await _context.Assignments.Where(a => a.StudentId == studentId && a.ModuleId == moduleId).FirstOrDefaultAsync();
+
+            return Ok(assignment);
+        }
+
         [HttpPut("module/addAssignment/{moduleId}")]
         public IActionResult addAssignment(ModuleForUpdateDto moduleForUpdateDto)
         {   
@@ -260,33 +276,37 @@ namespace EacademyApp.API.Controllers
                         string fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');  
                         string fullPath = Path.Combine(newPath, fileName);  
                         using (var stream = new FileStream(fullPath, FileMode.Create))  
-                        {  
-                            file.CopyTo(stream);  
-                        }  
-                    }  
+                        {
+                            file.CopyTo(stream);
+                        }
+                    }
                 }
-                /* Add SentAttachements */
-                var module = _context.Modules.FirstOrDefault(m => m.Id == moduleId);
-                var student = _context.Students.FirstOrDefault(s => s.Id == studentId);
 
-                var assignment = new Assignment
-                { 
-                    Module = module, 
-                    Student = student,
-                    Grade = 0
-                };
+                /* Add SentAttachements if it doesn't exist */
+                if (_context.Assignments.Where(x => x.ModuleId == moduleId && x.StudentId == studentId).ToList().Count() < 1)
+                {
+                    var module = _context.Modules.FirstOrDefault(m => m.Id == moduleId);
+                    var student = _context.Students.FirstOrDefault(s => s.Id == studentId);
 
-                _context.Assignments.Add(assignment);
+                    var assignment = new Assignment
+                    {
+                        Module = module,
+                        Student = student,
+                        Grade = 0
+                    };
+
+                    _context.Assignments.Add(assignment);
+                }
 
                 _context.SaveChanges();
                 /* */
-                return Ok(); 
+                return Ok();
 
-            }  
-            catch (System.Exception ex)  
-            {  
-                return Ok("Upload Failed: " + ex.Message);  
-            }  
+            }
+            catch (System.Exception ex)
+            {
+                return Ok("Upload Failed: " + ex.Message);
+            }
         }
     }
 }

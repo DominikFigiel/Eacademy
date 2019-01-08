@@ -1,14 +1,12 @@
+import { Assignment } from './../_models/assignment';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { AuthService } from './auth.service';
 import { CourseStudents } from './../_models/courseStudents';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { Course } from '../_models/course';
-import { Student } from '../_models/student';
-import { Module } from '../_models/module';
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +51,14 @@ export class CourseService {
     return this.http.post(
       this.baseUrl + 'courses/' + courseId + '/addModule/', model
     );
+  }
+
+  getAssignmentsByStudent(studentId: number) {
+    return this.http.get<Assignment[]>(this.baseUrl + 'courses/module/getAssignments/' + studentId);
+  }
+
+  getAssignmentByStudent(studentId: number, moduleId: number) {
+    return this.http.get(this.baseUrl + 'courses/module/getAssignment/' + studentId + '/' + moduleId);
   }
 
   getModule(id: number) {
