@@ -1,13 +1,10 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-primary">
   <div class="container">
-      <a class="navbar-brand" [routerLink]="['/home']">eAcademy App</a>
+      <a class="navbar-brand" [routerLink]="['/welcome']">eAcademy App</a>
 
       <ul *ngIf="studentLoggedIn()" class="navbar-nav mr-auto">
         <li class="nav-item" routerLinkActive="active">
           <a class="nav-link" [routerLink]="['/students']">Użytkownicy</a>
-        </li>
-        <li *appHasRole="['Student']" class="nav-item" routerLinkActive="active">
-          <a class="nav-link" [routerLink]="['/messages']">Wiadomości</a>
         </li>
         <li *appHasRole="['Student']" class="nav-item" routerLinkActive="active">
           <a class="nav-link" [routerLink]="['/courses']">Lista kursów</a>
@@ -29,8 +26,8 @@
         <div class="dropdown-menu mt-3" *dropdownMenu>
           <a class="dropdown-item" [routerLink]="['/student/edit']"><i class="fa fa-user"></i> Edytuj profil</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" [routerLink]="['student/courses']"><i class="fa fa-book"></i> Moje kursy</a>
-          <div class="dropdown-divider"></div>
+          <a *appHasRole="['Student']" class="dropdown-item" [routerLink]="['student/courses']"><i class="fa fa-book"></i> Moje kursy</a>
+          <div *appHasRole="['Student']" class="dropdown-divider"></div>
           <a class="dropdown-item" (click)="studentLogout()"><i class="fa fa-sign-out"></i> Wyloguj</a>
         </div>
       </div>

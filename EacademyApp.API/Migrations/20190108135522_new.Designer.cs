@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EacademyApp.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20190103125613_New")]
-    partial class New
+    [Migration("20190108135522_new")]
+    partial class @new
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

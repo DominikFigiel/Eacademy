@@ -70,7 +70,7 @@ namespace EacademyApp.API
             // app.UseHttpsRedirection();
 
             // Seed users and data
-            // seeder.SeedData();
+            seeder.SeedData();
             //
 
             app.UseStaticFiles();
