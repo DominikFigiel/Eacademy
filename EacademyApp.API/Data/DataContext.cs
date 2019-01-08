@@ -12,7 +12,7 @@ namespace EacademyApp.API.Data
         public DbSet<Course> Courses { get; set; }
         public DbSet<CourseStudent> CourseStudents { get; set; }
         public DbSet<Module> Modules { get; set; }
-
+        public DbSet<Assignment> Assignments { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<StudentRole> StudentRoles { get; set; }
 

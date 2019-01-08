@@ -4,7 +4,9 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using AutoMapper;
 using EacademyApp.API.Data;
+using EacademyApp.API.Dtos;
 using EacademyApp.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -20,12 +22,14 @@ namespace EacademyApp.API.Controllers
     public class CoursesController : ControllerBase
     {
         private readonly DataContext _context;
+        private readonly IMapper _mapper;
         public IEacademyRepository _repo { get; }
         private readonly IHostingEnvironment _host;
         private readonly string[] ACCEPTED_FILE_TYPES = new[] {".zip"};
-        public CoursesController(DataContext context, IEacademyRepository repo, IHostingEnvironment host)
+        public CoursesController(DataContext context, IMapper mapper, IEacademyRepository repo, IHostingEnvironment host)
         {
             _context = context;
+            _mapper = mapper;
             _repo = repo;
             _host = host;
         }
@@ -216,5 +220,73 @@ namespace EacademyApp.API.Controllers
             }  
         }
 
+        [HttpGet("module/{id}")]
+        public async Task<IActionResult> GetModule(int id)
+        {
+            var module = await _context.Modules.FirstOrDefaultAsync(x => x.Id == id);
+
+            return Ok(module);
+        }
+
+        [HttpPut("module/addAssignment/{moduleId}")]
+        public IActionResult addAssignment(ModuleForUpdateDto moduleForUpdateDto)
+        {   
+            var module = _context.Modules.FirstOrDefault(m => m.Id == moduleForUpdateDto.Id);
+            module.HasAssignment = true;
+
+            _mapper.Map(moduleForUpdateDto, module);
+
+            _context.SaveChanges();
+
+            return Ok(module); 
+        }
+
+        [HttpPost("module/sendAssignment/{moduleId}/{studentId}"), DisableRequestSizeLimit]
+        public IActionResult UploadAssignmentFile(IFormFile filesData, int moduleId, int studentId)
+        {   
+            try  
+            {  
+                foreach(var file in Request.Form.Files) {
+                    // var file = Request.Form.Files[0];  
+                    string folderName = "Uploads/Assignments";  
+                    string webRootPath = _host.WebRootPath;  
+                    string newPath = Path.Combine(webRootPath, folderName);  
+                    if (!Directory.Exists(newPath))  
+                    {  
+                        Directory.CreateDirectory(newPath);  
+                    }  
+                    if (file.Length > 0)  
+                    {  
+                        string fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');  
+                        string fullPath = Path.Combine(newPath, fileName);  
+                        using (var stream = new FileStream(fullPath, FileMode.Create))  
+                        {  
+                            file.CopyTo(stream);  
+                        }  
+                    }  
+                }
+                /* Add SentAttachements */
+                var module = _context.Modules.FirstOrDefault(m => m.Id == moduleId);
+                var student = _context.Students.FirstOrDefault(s => s.Id == studentId);
+
+                var assignment = new Assignment
+                { 
+                    Module = module, 
+                    Student = student,
+                    Grade = 0
+                };
+
+                _context.Assignments.Add(assignment);
+
+                _context.SaveChanges();
+                /* */
+                return Ok(); 
+
+            }  
+            catch (System.Exception ex)  
+            {  
+                return Ok("Upload Failed: " + ex.Message);  
+            }  
+        }
     }
 }
