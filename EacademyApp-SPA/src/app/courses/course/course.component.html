@@ -35,10 +35,15 @@
                   <div class="col-sm-12 text-center mb-2">
                     <span class="card-text mr-2">Zadanie: <strong>{{module?.assignmentName}}</strong></span>
                   </div>
+                  <div *ngIf="showGrade(module?.id, studentId)" class="col-sm-12 text-center">
+                    Otrzymana ocena: 
+                    <strong *ngIf="assignments[getIndexOfGrade(module?.id, studentId)].grade > 0">{{assignments[getIndexOfGrade(module?.id, studentId)].grade}}</strong>
+                    <strong *ngIf="!(assignments[getIndexOfGrade(module?.id, studentId)].grade > 0)">Brak oceny</strong>
+                  </div>
                   <div *ngIf="assignmentSent(module?.id)" class="col-sm-12 text-center">
-                    <a class="btn btn-primary mr-3 mb-2" style="color:aliceblue" 
+                    <a class="btn btn-primary mr-3 mt-2 mb-2" style="color:aliceblue" 
                       href="{{baseStaticFilesUrl}}uploads/assignments/module_{{module?.id}}_student_{{studentId}}.zip" download>
-                        Pobierz Twoje rozwiązanie
+                        Pobierz swoje rozwiązanie
                     </a>
                   </div>
                 </div>
@@ -51,22 +56,22 @@
                   </div>
                 </div>
                 <div *ngIf="module?.hasAssignment" class="col-sm-12 mt-2 text-center">
-                    <form>
-                      <h4 *ngIf="assignmentSent(module?.id)" class="text-center text-primary">Wyślij rozwiązanie (poprzednie zostanie usunięte):</h4>
-                      <h4 *ngIf="!assignmentSent(module?.id)" class="text-center text-primary">Wyślij rozwiązanie:</h4>
+                  <form>
+                    <h4 *ngIf="assignmentSent(module?.id)" class="text-center text-primary">Wyślij rozwiązanie (poprzednie zostanie usunięte):</h4>
+                    <h4 *ngIf="!assignmentSent(module?.id)" class="text-center text-primary">Wyślij rozwiązanie:</h4>
 
-                      <hr>
-                  
-                      <div class="form-group">
-                        <label for="assignmentFile">Wybierz plik (.zip):</label>
-                        <input #assignmentFile type="file" name="assignmentFile" class="form-control" required accept=".zip" />
-                      </div>
-                  
-                      <div class="form-group text-center">
-                        <button class="btn btn-success mr-2" type="button" (click)="uploadAssignment(assignmentFile.files, module)">Wyślij plik</button>
-                      </div>
-                    </form>
-                  </div>
+                    <hr>
+                
+                    <div class="form-group">
+                      <label for="assignmentFile">Wybierz plik (.zip):</label>
+                      <input #assignmentFile type="file" name="assignmentFile" class="form-control" required accept=".zip" />
+                    </div>
+                
+                    <div class="form-group text-center">
+                      <button class="btn btn-success mr-2" type="button" (click)="uploadAssignment(assignmentFile.files, module)">Wyślij plik</button>
+                    </div>
+                  </form>
+                </div>
               </div>
             </div>
           </div>

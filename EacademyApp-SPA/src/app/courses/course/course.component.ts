@@ -46,10 +46,37 @@ export class CourseComponent implements OnInit {
   }
 
   assignmentSent(moduleId: number) {
-    if (this.assignments) {
-      return this.assignments.some(e => e.moduleId === moduleId);
+    if (moduleId !== null) {
+      if (this.assignments) {
+        return this.assignments.some(e => e.moduleId === moduleId);
+      } else {
+        return false;
+      }
     } else {
       return false;
+    }
+  }
+
+  showGrade(moduleId: number, studentId: number) {
+    if (moduleId === null) {
+      return false;
+    }
+    if (moduleId && studentId && this.assignments) {
+      if (this.assignments.find(a => a.moduleId === moduleId && a.studentId === +studentId)) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  getIndexOfGrade(moduleId: number, studentId: number) {
+    if (moduleId === null || this.assignments == null) {
+      return -1;
+    } else {
+      return this.assignments.indexOf(this.assignments.find(a => a.moduleId === moduleId && a.studentId === +studentId));
     }
   }
 
@@ -65,5 +92,3 @@ export class CourseComponent implements OnInit {
     }
 
   }
-
-}
