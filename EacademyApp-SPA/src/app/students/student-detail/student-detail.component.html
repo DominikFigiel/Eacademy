@@ -32,12 +32,8 @@
             <tab heading="Informacje ogólne">
               <div class="container mt-3">
                 <h1>Informacje ogólne</h1>
-                <p class="lead">Info:</p>
-                
-                <h4>Nagłowek 1</h4>
-                <p>Opis</p>
-                <h4>Nagłowek 2</h4>
-                <p>Opis</p>
+                <h4>{{student?.name}} {{student?.surname}}</h4>
+                <p>Data rejestracji: {{student?.created | date: 'dd/MM/yyyy'}}</p>
               </div>
             </tab>
           </tabset>

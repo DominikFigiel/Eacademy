@@ -9,4 +9,4 @@ namespace EacademyApp.API.Models
         public Module Module { get; set; }
         public int Grade { get; set; }
     }
-} 
+}

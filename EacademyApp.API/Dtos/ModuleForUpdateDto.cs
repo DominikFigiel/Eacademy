@@ -7,4 +7,4 @@ namespace EacademyApp.API.Dtos
         public int Id { get; set; }
         public string AssignmentName { get; set; }
     }
-} 
+}
