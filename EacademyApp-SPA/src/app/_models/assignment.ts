@@ -1,5 +1,5 @@
-import { Student } from "./student";
-import { Module } from "./module";
+import { Student } from './student';
+import { Module } from './module';
 
 export interface Assignment {
   id: number;

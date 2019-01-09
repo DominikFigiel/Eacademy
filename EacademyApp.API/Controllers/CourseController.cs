@@ -223,9 +223,42 @@ namespace EacademyApp.API.Controllers
         [HttpGet("module/{id}")]
         public async Task<IActionResult> GetModule(int id)
         {
-            var module = await _context.Modules.FirstOrDefaultAsync(x => x.Id == id);
+            var module = await _context.Modules.Include(m => m.Course).ThenInclude(c => c.Instructor).FirstOrDefaultAsync(x => x.Id == id);
 
             return Ok(module);
+        }
+
+        [HttpPut("module/addAssignment/{moduleId}")]
+        public IActionResult addAssignment(ModuleForUpdateDto moduleForUpdateDto)
+        {   
+            var module = _context.Modules.FirstOrDefault(m => m.Id == moduleForUpdateDto.Id);
+            module.HasAssignment = true;
+
+            _mapper.Map(moduleForUpdateDto, module);
+
+            _context.SaveChanges();
+
+            return Ok(module); 
+        }
+
+        [HttpPut("module/setGrade/{moduleId}")]
+        public IActionResult setGradeOfAssignment(AssignmentForUpdateDto assignmentForUpdateDto)
+        {   
+            var assignment = _context.Assignments.FirstOrDefault(a => a.Id == assignmentForUpdateDto.Id);
+
+            _mapper.Map(assignmentForUpdateDto, assignment);
+
+            _context.SaveChanges();
+
+            return Ok(assignment); 
+        }
+
+        [HttpGet("module/getAssignmentsByModule/{moduleId}")]
+        public async Task<IActionResult> GetAssignmentsByModule(int moduleId)
+        {
+            var assignments = await _context.Assignments.Where(a => a.ModuleId == moduleId).Include(a => a.Student).Include(a => a.Module).ToListAsync();
+
+            return Ok(assignments);
         }
 
         [HttpGet("module/getAssignments/{studentId}")]
@@ -242,19 +275,6 @@ namespace EacademyApp.API.Controllers
             var assignment = await _context.Assignments.Where(a => a.StudentId == studentId && a.ModuleId == moduleId).FirstOrDefaultAsync();
 
             return Ok(assignment);
-        }
-
-        [HttpPut("module/addAssignment/{moduleId}")]
-        public IActionResult addAssignment(ModuleForUpdateDto moduleForUpdateDto)
-        {   
-            var module = _context.Modules.FirstOrDefault(m => m.Id == moduleForUpdateDto.Id);
-            module.HasAssignment = true;
-
-            _mapper.Map(moduleForUpdateDto, module);
-
-            _context.SaveChanges();
-
-            return Ok(module); 
         }
 
         [HttpPost("module/sendAssignment/{moduleId}/{studentId}"), DisableRequestSizeLimit]
@@ -276,21 +296,19 @@ namespace EacademyApp.API.Controllers
                         string fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');  
                         string fullPath = Path.Combine(newPath, fileName);  
                         using (var stream = new FileStream(fullPath, FileMode.Create))  
-                        {
-                            file.CopyTo(stream);
-                        }
-                    }
+                        {  
+                            file.CopyTo(stream);  
+                        }  
+                    }  
                 }
-
                 /* Add SentAttachements if it doesn't exist */
-                if (_context.Assignments.Where(x => x.ModuleId == moduleId && x.StudentId == studentId).ToList().Count() < 1)
-                {
+                if (_context.Assignments.Where(x => x.ModuleId == moduleId && x.StudentId == studentId).ToList().Count() < 1) {
                     var module = _context.Modules.FirstOrDefault(m => m.Id == moduleId);
                     var student = _context.Students.FirstOrDefault(s => s.Id == studentId);
 
                     var assignment = new Assignment
-                    {
-                        Module = module,
+                    { 
+                        Module = module, 
                         Student = student,
                         Grade = 0
                     };
@@ -299,14 +317,16 @@ namespace EacademyApp.API.Controllers
                 }
 
                 _context.SaveChanges();
-                /* */
-                return Ok();
 
-            }
-            catch (System.Exception ex)
-            {
-                return Ok("Upload Failed: " + ex.Message);
-            }
+                /* */
+                return Ok(); 
+                
+            }  
+            catch (System.Exception ex)  
+            {  
+                return Ok("Upload Failed: " + ex.Message);  
+            }  
         }
+
     }
 }

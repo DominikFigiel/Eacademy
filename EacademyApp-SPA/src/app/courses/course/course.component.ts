@@ -1,3 +1,4 @@
+import { Module } from 'src/app/_models/module';
 import { AuthService } from 'src/app/_services/auth.service';
 import { FileUploaderService } from 'src/app/_services/fileUploader.service';
 import { CourseService } from './../../_services/course.service';
@@ -18,7 +19,7 @@ export class CourseComponent implements OnInit {
   studentId: number;
   baseStaticFilesUrl = 'http://localhost:5000/';
   constructor(private courseService: CourseService, private route: ActivatedRoute, private authService: AuthService,
-    private alertify: AlertifyService, private fileUploader: FileUploaderService) { }
+      private alertify: AlertifyService, private fileUploader: FileUploaderService) { }
 
   ngOnInit() {
     this.loadCourse();
@@ -52,9 +53,9 @@ export class CourseComponent implements OnInit {
     }
   }
 
-  uploadAssignment(files: any, moduleId: number) {
+  uploadAssignment(files: any, module: Module) {
     if (files.length > 0) {
-      this.fileUploader.uploadAssignment(files, moduleId).subscribe(() => {
+      this.fileUploader.uploadAssignment(files, module.id).subscribe(() => {
         this.alertify.success('Plik został wysłany.');
       }, error => {
         this.alertify.error('Nie udało się wysłać pliku.');
@@ -62,6 +63,7 @@ export class CourseComponent implements OnInit {
     } else {
       this.alertify.error('Nie wybrałeś pliku.');
     }
+
   }
 
 }

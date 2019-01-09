@@ -40,6 +40,8 @@ import { InstructorCourseManagementComponent } from './admin/instructor-course-m
 import { InstructorCourseManagementListComponent } from './admin/instructor-course-management-list/instructor-course-management-list.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { FileUploaderService } from './_services/fileUploader.service';
+// tslint:disable-next-line:max-line-length
+import { InstructorModuleGradesManagementComponent } from './admin/instructor-module-grades-management/instructor-module-grades-management.component';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -68,7 +70,8 @@ export function tokenGetter() {
       CourseInstructorModalComponent,
       InstructorCourseListComponent,
       InstructorCourseManagementComponent,
-      InstructorCourseManagementListComponent
+      InstructorCourseManagementListComponent,
+      InstructorModuleGradesManagementComponent
    ],
    imports: [
       BrowserModule,

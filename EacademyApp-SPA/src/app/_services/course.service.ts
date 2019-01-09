@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Course } from '../_models/course';
+import { Module } from '../_models/module';
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +54,14 @@ export class CourseService {
     );
   }
 
+  getAssignmentsByModule(moduleId: number) {
+    return this.http.get<Assignment[]>(this.baseUrl + 'courses/module/getAssignmentsByModule/' + moduleId);
+  }
+
+  setGradeOfAnAssignment(assignment: any) {
+    return this.http.put(this.baseUrl + 'courses/module/setGrade/' + assignment.id, assignment);
+  }
+
   getAssignmentsByStudent(studentId: number) {
     return this.http.get<Assignment[]>(this.baseUrl + 'courses/module/getAssignments/' + studentId);
   }
@@ -62,7 +71,7 @@ export class CourseService {
   }
 
   getModule(id: number) {
-    return this.http.get(this.baseUrl + 'courses/module' + id);
+    return this.http.get(this.baseUrl + 'courses/module/' + id);
   }
 
   addModuleAssignment(mod: any) {

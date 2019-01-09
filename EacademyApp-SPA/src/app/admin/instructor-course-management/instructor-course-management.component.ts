@@ -61,6 +61,7 @@ export class InstructorCourseManagementComponent implements OnInit {
 
   addModuleAssignment(mod: Module, name: string) {
     mod.assignmentName = name;
+    mod.hasAssignment =  true;
     if (name) {
       this.courseService.addModuleAssignment(mod).subscribe(() => {
       }, error => {
@@ -70,6 +71,7 @@ export class InstructorCourseManagementComponent implements OnInit {
       this.alertify.error('Nie wpisałeś nazwy zadania.');
     }
   }
+
 
   getCourse() {
     this.courseService.getCourse(+this.route.snapshot.params['id']).subscribe((course: Course) => {
